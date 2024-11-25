@@ -1,0 +1,354 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #f4f7fc;
+  }
+
+  /* START of sidebar Menu Section */
+  #sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #2c3e50;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease;
+  }
+  
+  #sidebar-toggle {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #34495e;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 50px;
+  }
+  
+  .sidebar-menu li {
+    padding: 15px;
+    text-align: left;
+  }
+  
+  .sidebar-menu li a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+  }
+  
+  .sidebar-menu li a i {
+    margin-right: 15px;
+  }
+  
+  .sidebar-menu li:hover {
+    background-color: #34495e;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex-grow: 1;
+  }
+/* END of sidebar Menu Section */
+
+/* START of Header Seciton Styling */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #34495e;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 250px;
+    right: 0;
+    z-index: 10;
+  }
+  
+  .header-left h1 {
+    margin: 0;
+  }
+  
+  .header-right {
+    position: relative;
+  }
+  
+  .profile-icon {
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    width: 150px;
+  }
+  
+  .dropdown-menu.show {
+    display: block;
+  }
+  
+  .dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown-menu ul li {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .dropdown-menu ul li a {
+    color: #34495e;
+    text-decoration: none;
+  }
+  
+  .dropdown-menu ul li:hover {
+    background-color: #f4f7fc;
+  }
+  /* END of Header Seciton Styling */
+
+
+/* START of Select Clients Dropdown Section */
+.select-client-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 40px;
+    border: 1px solid #dcdfe1;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 14px; /* Adjust font size */
+}
+
+.select-client-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#client-dropdown {
+    display: flex; /* Aligns dropdown and button in a row */
+    gap: 10px; /* Space between dropdown and button */
+    align-items: center; /* Vertically centers the dropdown and button */
+}
+
+#client-name {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 200px; /* Set a fixed width for the dropdown */
+}
+
+#search-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+/* END of Select Clients Dropdown Section */
+
+
+
+/* START of Metric Box Styling */
+
+  .metrics-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 80px; /* Add space for header */
+    margin-bottom: 40px;
+  }
+  
+  .metric-box {
+    background-color: #ecf0f1;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #dcdfe1; /* Add visible border */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  transition: transform 0.3s ease-in-out; /* Smooth scaling effect on hover */
+  }
+  
+  .metric-box h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  .metric-box p {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+  
+  .metric-box:hover {
+    transform: translateY(-5px); /* Lift the box when hovered */
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  }
+/* END of Metric Box Styling */
+
+
+  .search-container {
+    background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 40px;
+  border: 1px solid #dcdfe1;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex; /* Use flexbox to align items horizontally */
+  align-items: center; /* Vertically center the items */
+  gap: 10px; /* Space between items (heading, inputs, button) */
+  }
+  
+  .search-container h2 {
+    margin: 0; /* Remove any default margin */
+    font-size: 24px;
+  }
+
+  #search-form {
+    display: flex; /* Use flexbox to align form elements horizontally */
+    gap: 10px; /* Adds space between the input fields and the button */
+  }
+
+  #search-form input {
+    padding: 10px;
+    width: 200px; /* Set a fixed width for input fields */
+    font-size: 16px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  #search-btn {
+    padding: 10px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  .search-results {
+    margin-top: 20px;
+  }
+  
+  .search-result {
+    padding: 15px;
+    background-color: #f4f4f4;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+  .search-result p {
+    margin: 5px 0;
+  }
+  
+
+/* START of User Information Container Styling */
+.user-info-container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 40px;
+    border: 1px solid #dcdfe1;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: block;
+    max-width: 100%; /* Allow full width to fit the desktop window */
+    overflow: hidden;
+    font-size: 14px; /* Adjust font size for better fitting in a desktop window */
+  }
+  
+  .user-info-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  #user-info-form {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Create 4 columns */
+    gap: 20px;
+    font-size: 14px; /* Adjust font size */
+  }
+  
+  .form-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .form-row label {
+    width: 150px;
+    font-weight: bold;
+    margin-right: 10px; /* Space between label and input */
+  }
+  
+  .form-row input {
+    padding: 10px;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  button#reset-btn {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%; /* Make reset button full-width for better visibility */
+    margin-top: 20px;
+  }
+  
+  button#reset-btn:hover {
+    background-color: #2980b9;
+  }
+/* END of user Information Container*/  
+
+
+
+
+  /* Responsive Design for Sidebar */
+  @media screen and (max-width: 768px) {
+    #sidebar {
+      width: 70px;
+    }
+  
+    .main-content {
+      margin-left: 70px;
+    }
+  
+    header {
+      left: 70px;
+    }
+  
+    .profile-icon {
+      font-size: 25px;
+    }
+  }
+  

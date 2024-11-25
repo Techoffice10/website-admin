@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- For AJAX support -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- For Icons -->
+</head>
+<body>
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div id="sidebar-toggle" class="toggle-btn">
+      <span>&#9665;</span>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+      <li><a href="clientprofile.html"><i class="fas fa-users"></i> Client Profile</a></li>
+      <li><a href="usercreation.html"><i class="fas fa-user-plus"></i> User Creation</a></li>
+      <li><a href="reports.html"><i class="fas fa-chart-line"></i> Reports</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="header-left">
+        <h1>Admin Dashboard</h1>
+      </div>
+      <div class="header-right">
+        <div class="profile-dropdown">
+          <i class="fas fa-user-circle profile-icon" id="profile-icon"></i>
+          <div class="dropdown-menu" id="dropdown-menu">
+            <ul>
+              <li><a href="#">Settings</a></li>
+              <li><a href="#">Log Out</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+<!-- Start of Select Client Section -->
+<div class="select-client-container">
+    <h2>Select Client</h2>
+    <form id="client-dropdown">
+        <!-- Dropdown for Client Names -->
+        <select id="client-name" name="client-name">
+            <option value="">Select Client</option>
+            <option value="A-Spec">A-Spec</option>
+            <option value="Arthur Transport">Arthur Transport</option>
+            <option value="Diamond Insurance">Diamond Insurance</option>
+            <option value="Gracious Hardwood">Gracious Hardwood</option>
+            <option value="Haulage Na">Haulage Na</option>
+        </select>
+        
+        <!-- Search Button -->
+        <button type="button" id="search-btn">Search</button>
+    </form>
+</div>
+<!-- End of Select Client Section -->
+
+
+<!-- Top Section: Metrics Boxes -->
+<div class="metrics-container">
+    <div class="metric-box">
+      <h3>Total Sales</h3>
+      <p id="total-sales">100</p>
+    </div>
+    <div class="metric-box">
+      <h3>Total Revenue</h3>
+      <p id="total-revenue">1500</p>
+    </div>
+    <div class="metric-box">
+      <h3>Total Clients</h3>
+      <p id="total-clients">200</p>
+    </div>
+    <div class="metric-box">
+      <h3>Total Users</h3>
+      <p id="total-users">50</p>
+    </div>
+    <div class="metric-box">
+      <h3>Total Transactions</h3>
+      <p id="total-transactions">300</p>
+    </div>
+    <div class="metric-box">
+      <h3>Active Users</h3>
+      <p id="active-users">150</p>
+    </div>
+    <div class="metric-box">
+      <h3>Pending Approvals</h3>
+      <p id="pending-approvals">5</p>
+    </div>
+    <div class="metric-box">
+      <h3>Failed Payments</h3>
+      <p id="failed-payments">10</p>
+    </div>
+  </div>
+  
+  <!-- Search Users Section -->
+  <div class="search-container">
+    <h2>Search Users</h2> 
+    <form id="search-form">
+      <input type="text" id="search-name" placeholder="Enter Name">
+      <input type="text" id="search-phone" placeholder="Enter Phone Number">
+      <input type="text" id="search-node" placeholder="Enter Node #">
+      <button type="button" id="search-btn">Search</button>
+    </form>
+  </div>
+  
+  
+
+    <!-- START of User Information Container -->
+    <div class="user-info-container">
+        <h2>User Information</h2>
+        <form id="user-info-form">
+          <div class="form-row">
+            <label for="full-name">Full Name</label>
+            <input type="text" id="full-name" placeholder="Enter Full Name">
+          </div>
+          <div class="form-row">
+            <label for="phone-number">Phone Number</label>
+            <input type="text" id="phone-number" placeholder="Enter Phone Number">
+          </div>
+          <div class="form-row">
+            <label for="company-name">Company Name</label>
+            <input type="text" id="company-name" placeholder="Enter Company Name">
+          </div>
+          <div class="form-row">
+            <label for="location">Location</label>
+            <input type="text" id="location" placeholder="Enter Location">
+          </div>
+          <div class="form-row">
+            <label for="user-name">User Name</label>
+            <input type="text" id="user-name" placeholder="Enter User Name">
+          </div>
+          <div class="form-row">
+            <label for="email-id">Email Id</label>
+            <input type="text" id="email-id" placeholder="Enter Email Id">
+          </div>
+          <div class="form-row">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter Password">
+          </div>
+          <div class="form-row">
+            <label for="branch-code">Branch Code</label>
+            <input type="text" id="branch-code" placeholder="Enter Branch Code">
+          </div>
+          <div class="form-row">
+            <label for="node-number">Node #</label>
+            <input type="text" id="node-number" placeholder="Enter Node Number">
+          </div>
+          <div class="form-row">
+            <label for="port-no">Port No</label>
+            <input type="text" id="port-no" placeholder="Enter Port Number">
+          </div>
+          <div class="form-row">
+            <label for="internal-ip">Internal IP</label>
+            <input type="text" id="internal-ip" placeholder="Enter Internal IP">
+          </div>
+          <div class="form-row">
+            <label for="power-broker-id">Power Broker Id</label>
+            <input type="text" id="power-broker-id" placeholder="Enter Power Broker Id">
+          </div>
+          <div class="form-row">
+            <label for="applied-ratings-id">Applied Ratings ID</label>
+            <input type="text" id="applied-ratings-id" placeholder="Enter Applied Ratings ID">
+          </div>
+          <div class="form-row">
+            <label for="fleet-manager-id">Fleet Manager Id</label>
+            <input type="text" id="fleet-manager-id" placeholder="Enter Fleet Manager Id">
+          </div>
+          <div class="form-row">
+            <label for="creation-date">Creation Date</label>
+            <input type="date" id="creation-date" placeholder="Select Creation Date">
+          </div>
+          <div class="form-row">
+            <label for="status">Status</label>
+            <input type="text" id="status" placeholder="Enter Status">
+          </div>
+          <button type="button" id="reset-btn">Reset</button>
+        </form>
+      </div>
+    <!-- END of User Information Section-->  
+
+
+  </div>
+
+
+
+
+  <script>
+    // Sidebar toggle function
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+    
+    toggleBtn.addEventListener('click', () => {
+      if (sidebar.style.width === '250px') {
+        sidebar.style.width = '70px'; // Collapsing Sidebar
+      } else {
+        sidebar.style.width = '250px'; // Expanding Sidebar
+      }
+    });
+
+    // Profile Dropdown Menu Toggle
+    const profileIcon = document.getElementById('profile-icon');
+    const dropdownMenu = document.getElementById('dropdown-menu');
+
+    profileIcon.addEventListener('click', function() {
+      dropdownMenu.classList.toggle('show');
+    });
+
+    // Close dropdown if clicked outside
+    document.addEventListener('click', function(event) {
+      if (!profileIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.classList.remove('show');
+      }
+    });
+
+    // AJAX search function
+    document.getElementById('search-btn').addEventListener('click', function() {
+      const name = document.getElementById('search-name').value;
+      const phone = document.getElementById('search-phone').value;
+      const node = document.getElementById('search-node').value;
+
+      $.ajax({
+        url: '/search/',  // Placeholder for your backend search endpoint
+        method: 'GET',
+        data: { name: name, phone: phone, node: node },
+        success: function(response) {
+          const resultsContainer = document.getElementById('search-results');
+          resultsContainer.innerHTML = '';
+          response.results.forEach(result => {
+            const div = document.createElement('div');
+            div.classList.add('search-result');
+            div.innerHTML = `
+              <p>Name: ${result.name}</p>
+              <p>Phone: ${result.phone}</p>
+              <p>Node: ${result.node}</p>
+            `;
+            resultsContainer.appendChild(div);
+          });
+        }
+      });
+    });
+  </script>
+
+<!-- START of Handle Client DropDown Selection and Metrics Update Script-->
+<script>
+    // Add event listener for the search button click
+    document.getElementById("search-btn").addEventListener("click", function() {
+        // Get the selected client from the dropdown
+        var selectedClient = document.getElementById("client-name").value;
+    
+        // If no client is selected, show a message
+        if (selectedClient === "") {
+            alert("Please select a client!");
+            return;
+        }
+    
+        // Simulate updating metrics based on selected client
+        // You will replace this with an AJAX call to fetch data from MySQL
+        updateMetrics(selectedClient);
+    });
+    
+    // Function to simulate the update of metrics
+    function updateMetrics(client) {
+        // Placeholder logic to simulate metric data based on client selection
+        var metrics = {
+            "A-Spec": { sales: 100, revenue: 1500 },
+            "Arthur Transport": { sales: 200, revenue: 2500 },
+            "Diamond Insurance": { sales: 150, revenue: 1800 },
+            "Gracious Hardwood": { sales: 120, revenue: 2200 },
+            "Haulage Na": { sales: 130, revenue: 1900 }
+        };
+    
+        // Simulate fetching the data
+        if (metrics[client]) {
+            console.log("Metrics for " + client + ":");
+            console.log("Total Sales: " + metrics[client].sales);
+            console.log("Total Revenue: " + metrics[client].revenue);
+        }
+    }
+    </script>
+<!-- END of Handle Client DropDown Selection and Metrics Update script-->
+
+
+
+</body>
+</html>

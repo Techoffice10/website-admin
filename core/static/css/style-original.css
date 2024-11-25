@@ -1,0 +1,643 @@
+/* Resetting margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and General Layout */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: #f4f4f4;
+}
+
+/* Header Section */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 15px 30px;
+    color: white;
+}
+
+header .logo-search {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    width: 50px;
+    margin-right: 15px;
+}
+
+/* Adjusted search-logout section */
+header .search-logout {
+    display: flex;
+    align-items: center;
+}
+
+header .search-bar {
+    padding: 5px;
+    width: 250px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-right: 15px;
+}
+
+header .logout-button {
+    color: white;
+    text-decoration: none;
+    background-color: #f44336;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+/* Sidebar Styling */
+.sidebar {
+    background-color: #2c3e50; /* Dark Blue-Grey background */
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    z-index: 100;
+    transition: width 0.3s ease, padding 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 50px;
+    flex-grow: 1;
+}
+
+/* Sidebar Links */
+.sidebar-link {
+    color: #ecf0f1;
+    font-size: 18px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.sidebar-link .icon {
+    font-size: 24px; /* Icon size */
+    margin-right: 10px; /* Space between icon and text */
+    display: inline-block;
+}
+
+/* Sidebar Link Hover */
+.sidebar-link:hover {
+    background-color: #3498db; /* Bright Blue color on hover */
+    color: white;
+}
+
+/* Sidebar Toggle Button */
+.sidebar .sidebar-toggle-btn {
+    position: absolute;
+    top: 20px;
+    right: -25px;
+    background-color: #3498db;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.sidebar .sidebar-toggle-btn:hover {
+    background-color: #2980b9;
+}
+
+.sidebar .sidebar-toggle-btn:focus {
+    outline: none;
+}
+
+/* Sidebar Menu Layout */
+.sidebar .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+/* For Collapsed Sidebar */
+.sidebar.collapsed {
+    width: 70px; /* Narrow width when collapsed */
+    padding: 20px 0;
+}
+
+.sidebar.collapsed .link-text {
+    display: none; /* Hide text when collapsed */
+}
+
+.sidebar.collapsed .sidebar-link {
+    justify-content: center;
+}
+
+/* Show Icons Only When Collapsed */
+.sidebar.collapsed .icon {
+    font-size: 28px; /* Increase icon size when collapsed */
+    margin-right: 0; /* Remove margin for better icon alignment */
+}
+
+/* Add hover effect for collapsed mode */
+.sidebar.collapsed:hover {
+    width: 250px; /* Expand width on hover */
+}
+
+.sidebar.collapsed .sidebar-toggle-btn {
+    transform: rotate(180deg); /* Rotate arrow to point left when collapsed */
+}
+
+/* Media Query for Responsive Sidebar */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+}
+
+
+/* Content Section */
+.content {
+    margin-left: 250px;
+    padding: 40px 20px 20px; /* Added top padding to move content down */
+    flex: 1;
+}
+
+/* START of Stats Section */
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-box {
+    padding: 30px;
+    width: 23%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;  /* To ensure that the icon is aligned properly */
+    background: linear-gradient(to bottom right, #5dade2, #2c3e50); /* Blue gradient */
+}
+
+.stat-box:hover {
+    transform: translateY(-15px); /* Slight hover effect to raise the box */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);  /* Increased shadow on hover */
+}
+
+.stat-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+    background-color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon img {
+    width: 50px;  /* Adjust the size of the icon */
+    height: 50px;
+}
+
+.stat-box h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.stat-box p {
+    font-size: 30px;
+    color: #ecf0f1; /* Lighter color for contrast */
+    margin-top: 15px;
+}
+
+/* Optional: Adjusting colors for the stat boxes with different blue tones */
+.stat-box:nth-child(1) {
+    background: linear-gradient(to bottom right, #2980b9, #1abc9c); /* Active Users */
+}
+
+.stat-box:nth-child(2) {
+    background: linear-gradient(to bottom right, #3498db, #2980b9); /* Active RDP */
+}
+
+.stat-box:nth-child(3) {
+    background: linear-gradient(to bottom right, #5dade2, #2980b9); /* Active Emails */
+}
+
+.stat-box:nth-child(4) {
+    background: linear-gradient(to bottom right, #6bb9f0, #2980b9); /* Active Alerts */
+}
+/* END of STATS Section */
+
+
+/* User Information Section */
+.client-select-container {
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #f7f9fc;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.client-select-container h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    color: #2c3e50;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Form Layout */
+.user-info-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.column {
+    flex: 1;
+    min-width: 280px;
+    max-width: 33%; /* Each column takes up 1/3rd of the width */
+    padding: 20px;
+}
+
+/* Form Row (fields) */
+.form-row {
+    margin-bottom: 20px;
+}
+
+.form-row label {
+    font-size: 16px;
+    color: #34495e;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-row input, .form-row select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #dcdfe1;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.form-row input:focus, .form-row select:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+/* Button Styling */
+.save-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+    background-color: #3498db;
+}
+
+.save-btn:active {
+    transform: scale(0.98);
+}
+
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+    .user-info-form {
+        flex-direction: column;
+    }
+
+    .column {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+
+/* START of History Notes Section Styling */
+/* History / Notes Section */
+.history-notes-container {
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #f7f9fc;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1800px; /* Limiting width to maintain alignment */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.history-notes-container h2 {
+    font-size: 24px;
+    color: #34495e;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* 2-Column Layout */
+.history-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.column {
+    width: 48%; /* Each column takes up 48% of the width */
+    display: flex;
+    flex-direction: column;
+}
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.left-column .editable {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #dcdfe1;
+    font-size: 16px;
+    box-sizing: border-box;
+    min-height: 400px;  /* Height adjustment */
+    overflow-y: auto;
+    background-color: #fff;
+    resize: vertical;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-bottom: 20px;
+}
+
+.left-column button.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.left-column button.submit-btn:hover {
+    background-color: #3498db;
+}
+
+.left-column button.submit-btn:active {
+    transform: scale(0.98);
+}
+
+/* Right Column - Displaying Notes (with Images) */
+.right-column {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.right-column h3 {
+    font-size: 20px;
+    color: #34495e;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.notes-container {
+    display: flex;
+    flex-direction: column-reverse; /* Ensure the latest notes appear at the top */
+    gap: 10px;
+}
+
+.note {
+    background-color: #ecf0f1;
+    padding: 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #34495e;
+}
+
+.note strong {
+    color: #2980b9;
+    font-weight: bold;
+}
+
+.note img {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .history-columns {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .left-column,
+    .right-column {
+        width: 100%;
+    }
+
+    .left-column button.submit-btn {
+        padding: 12px;
+    }
+}
+
+
+/* END of History Notes Section Styling */
+
+
+/* Footer Section */
+footer {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer .footer-content p {
+    margin: 5px 0;
+}
+
+footer .footer-logo {
+    width: 100px;
+    margin-top: 10px;
+}
+
+/* Client Select and Create New User Section */
+.client-select-container {
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #f7f9fc;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.client-select-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+/* Column Styles */
+.column {
+    flex: 1;
+    min-width: 280px;
+    max-width: 33%; /* Each column takes up 1/3rd of the container's width */
+    padding: 15px;
+}
+
+/* Label Styling */
+.client-label {
+    font-size: 16px;
+    color: #34495e;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+/* Input and Dropdown Fields */
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #dcdfe1;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.input-field:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+/* Style for the search container to hold input and icon */
+.search-container {
+    position: relative;
+    width: 100%;
+}
+
+/* Style for the input field */
+.search-bar {
+    width: 100%;
+    padding: 12px 40px 12px 12px;  /* Add padding to the right for the icon */
+    border-radius: 6px;
+    border: 1px solid #dcdfe1;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Style for the search icon */
+.icon {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);  /* Vertically center the icon */
+    font-size: 20px;
+    color: #2980b9;  /* Blue color to match theme */
+    cursor: pointer;
+}
+
+/* Optional: Adding hover effect on the search icon */
+.icon:hover {
+    color: #3498db;
+}
+
+/************** START User information Display using Search-bar Functionality ***********/
+.readonly-field {
+    background-color: #f0f0f0;  /* Light gray background to indicate it's non-editable */
+    border: 1px solid #ccc;      /* Border to make it clear it's not an input field for editing */
+    color: #555;                 /* Dark text color to make it visually distinct */
+    cursor: not-allowed;         /* Change the cursor to 'not-allowed' to indicate non-editability */
+    pointer-events: none;        /* Disable any interaction with the input fields */
+}
+/************** END User information Display using Search-bar Functionality ***********/
+
+
+.search-bar:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+/* Button Styling */
+.save-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+    background-color: #3498db;
+}
+
+.save-btn:active {
+    transform: scale(0.98);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .client-select-row {
+        flex-direction: column;
+    }
+
+    .column {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+
+/* Space between Client Select and Stats Section */
+.space-between-sections {
+    margin-top: 30px;  /* Create space between client select and stats sections */
+}
+/* END of Client Select and Create New User Section */
