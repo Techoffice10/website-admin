@@ -438,16 +438,6 @@ footer .footer-logo {
     color: #3498db;
 }
 
-/************** START User information Display using Search-bar Functionality ***********/
-.readonly-field {
-    background-color: #f0f0f0;  /* Light gray background to indicate it's non-editable */
-    border: 1px solid #ccc;      /* Border to make it clear it's not an input field for editing */
-    color: #555;                 /* Dark text color to make it visually distinct */
-    cursor: not-allowed;         /* Change the cursor to 'not-allowed' to indicate non-editability */
-    pointer-events: none;        /* Disable any interaction with the input fields */
-}
-/************** END User information Display using Search-bar Functionality ***********/
-
 
 .search-bar:focus {
     border-color: #2980b9;
@@ -494,3 +484,9 @@ footer .footer-logo {
     margin-top: 30px;  /* Create space between client select and stats sections */
 }
 /* END of Client Select and Create New User Section */
+
+/* Create New User Button Click - Anchoring/ Scrolling*/
+html {
+    scroll-behavior: smooth;  /* This enables smooth scrolling for anchor links */
+}
+/* End of Create New User Button Click - Anchoring/ Scrolling*/
