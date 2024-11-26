@@ -1,6 +1,7 @@
 # core/forms.py
 from django import forms
 from .models import UserInfo
+from .models import BillingModel
 
 class UserInfoForm(forms.ModelForm):
     class Meta:
@@ -23,14 +24,37 @@ class UserInfoForm(forms.ModelForm):
     user_creation_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'placeholder': 'Enter creation date'}))
     suspended_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'placeholder': 'Enter suspended date'}))
     status = forms.ChoiceField(choices=[('active', 'Active'), ('inactive', 'Inactive')])
+    history = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter Notes', 'cols': '80', 'rows': '5'}))
 
-    # Make sure all fields are editable after a search operation or on form re-render
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Ensure fields are not set to read-only or disabled after a search
-        for field_name, field in self.fields.items():
-            field.disabled = False  # Explicitly set the field to be editable
-            field.widget.attrs.pop('readonly', None)  # Remove readonly if set
+
+class BillingModelForm(forms.ModelForm):
+    class Meta:
+        model = BillingModel
+        fields = ['client_name', 'client_address', 'billing_to', 'service_type', 'bill_description', 'ticket_id',  
+                  'comments', 'emailed', 'invoice_no', 'invoice_date' ]
+        widgets = {
+            'client_name': forms.TextInput(attrs={'class': 'input-field'}),
+            'client_address': forms.TextInput(attrs={'class': 'input-field'}),
+            'billing_to': forms.TextInput(attrs={'class': 'input-field'}),
+            'service_type': forms.TextInput(attrs={'class': 'input-field'}),
+            'bill_description': forms.TextInput(attrs={'class': 'input-field'}),
+            'ticket_id': forms.NumberInput(attrs={'class': 'input-field'}),
+            'comments': forms.TextInput(attrs={'class': 'input-field'}),
+            'emailed': forms.TextInput(attrs={'class': 'input-field'}),
+            'invoice_no': forms.NumberInput(attrs={'class': 'input-field'}),
+            'invoice_date': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'input-field'}),
+
+        }
+
+
+# Custom field for 'emailed' as a choice field
+    emailed = forms.ChoiceField(
+        choices=[('YES', 'Yes'), ('NO', 'No')],
+        widget=forms.Select(attrs={'class': 'input-field'}),
+        initial='NO'
+    )
+
+
 
 # If you have another form, like YourForm, this should be left as is, assuming it's a different use case.
 class YourForm(forms.Form):

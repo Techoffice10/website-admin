@@ -9,9 +9,6 @@
     
 <!-- Include JavaScript for popup -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-
-
 
 
 </head>
@@ -48,13 +45,17 @@
             <img src="{% static 'images/sidebar11.png' %}" alt="Dashboard" class="sidebar-icon"> <!-- Dashboard icon -->
             <span class="link-text">Dashboard</span>
         </a></li>
-        <li><a href="#" class="sidebar-link">
+        <li><a href="{% url 'billing' %}" class="sidebar-link">
             <img src="{% static 'images/sidebar12.png' %}" alt="Reports" class="sidebar-icon"> <!-- Reports icon -->
-            <span class="link-text">Reports</span>
+            <span class="link-text">Billing</span>
         </a></li>
         <li><a href="#" class="sidebar-link">
             <img src="{% static 'images/sidebar33.png' %}" alt="Customers" class="sidebar-icon"> <!-- Customers icon -->
             <span class="link-text">Customers</span>
+        </a></li>
+        <li><a href="#" class="sidebar-link">
+            <img src="{% static 'images/sidebar15.png' %}" alt="Tickets" class="sidebar-icon"> <!-- Settings icon -->
+            <span class="link-text">Tickets</span>
         </a></li>
         <li><a href="#" class="sidebar-link">
             <img src="{% static 'images/sidebar14.png' %}" alt="Settings" class="sidebar-icon"> <!-- Settings icon -->
@@ -83,11 +84,16 @@
             </select>
         </div>
 
-        <!-- 'Create New User' Button that anchors to the form below -->
-        <div class="column">
-            <button class="save-btn" onclick="document.getElementById('create-new-user-form').scrollIntoView();">Create New User</button>
+        <div class="form-row">
+
+            <input type="text" id="client_plan" name="client_plan" value="{{ user_info.client_plan }}" placeholder="Current Plan" class="editable-field">
         </div>
-    </div>
+
+        <div class="column">
+            <button class="save-btn" onclick="window.location.href='/dashboard/usercreation/'">Create New User</button>
+        </div>
+        
+        
 </div>
 <!-- END of Client Select and Create New User Container -->
 
@@ -214,6 +220,10 @@
                 <label for="status">Status</label>
                 <input type="text" id="status" name="status" value="{{ user_info.status }}" class="editable-field">
             </div>
+            <div class="form-row">
+                <label for="case_history">Case History</label>
+                <textarea id="case_history" name="case_history" class="editable-field" style="width: 100%; height: 150px;"></textarea>
+            </div>
         </div>
     </form>
 </div>
@@ -225,7 +235,7 @@
 
 
 <!-- start Create New User Section-->
-<div class="create-new-user-container">
+<div class="client-select-container">
     <h2>Create New User</h2>
     <form method="POST" class="user-info-form">
         {% csrf_token %}
@@ -306,12 +316,11 @@
 </div>
 <!-- End of Create New User Section-->
 
-
-
-
     </main>
 
-    <!-- Footer Section -->
+
+
+<!-- Footer Section -->
     <footer>
         <div class="footer-content">
             <p>Tech Office Inc</p>

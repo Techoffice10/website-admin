@@ -30,6 +30,8 @@ urlpatterns = [
     path('register/', views.admin_register, name='register'),
     path('login/', views.CustomLoginView.as_view(), name='login'),  # Use the custom login view
     path('dashboard/', views.dashboard, name='dashboard'), # Dashboard URL
+    path('dashboard/usercreation/', views.user_creation, name='user_creation'),  # New User Creation URL
+    path('dashboard/billing/', views.billing_view, name='billing'),  # Billing URL
     path('', include('core.urls')), # Include core app URLs (if any)
     #path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'), # Log out using Django's auth system

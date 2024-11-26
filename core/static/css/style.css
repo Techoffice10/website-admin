@@ -57,6 +57,14 @@ header .logout-button {
 }
 
 /* Sidebar Styling */
+
+/* Set the size of the sidebar icons */
+.sidebar-icon {
+    width: 40px; /* Adjust the size as needed */
+    height: auto; /* Maintain the aspect ratio */
+}
+
+
 .sidebar {
     background-color: #2c3e50; /* Dark Blue-Grey background */
     width: 250px;
@@ -77,7 +85,7 @@ header .logout-button {
 .sidebar-menu {
     list-style: none;
     padding: 0;
-    margin-top: 20px; /* Reduced space for better alignment */
+    margin-top: 50px;
     flex-grow: 1;
 }
 
@@ -94,10 +102,8 @@ header .logout-button {
     width: 100%;
 }
 
-/* Sidebar Icon Styling */
-.sidebar-icon {
-    width: 24px; /* Set a fixed size for the icon */
-    height: 24px;
+.sidebar-link .icon {
+    font-size: 24px; /* Icon size */
     margin-right: 10px; /* Space between icon and text */
     display: inline-block;
 }
@@ -130,27 +136,34 @@ header .logout-button {
     outline: none;
 }
 
+/* Sidebar Menu Layout */
+.sidebar .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
 /* For Collapsed Sidebar */
 .sidebar.collapsed {
     width: 70px; /* Narrow width when collapsed */
     padding: 20px 0;
 }
 
-.sidebar.collapsed .sidebar-link {
-    justify-content: center; /* Center align content */
-}
-
 .sidebar.collapsed .link-text {
     display: none; /* Hide text when collapsed */
 }
 
-.sidebar.collapsed .sidebar-icon {
-    width: 30px; /* Increase icon size when collapsed */
-    height: 30px;
+.sidebar.collapsed .sidebar-link {
+    justify-content: center;
+}
+
+/* Show Icons Only When Collapsed */
+.sidebar.collapsed .icon {
+    font-size: 28px; /* Increase icon size when collapsed */
     margin-right: 0; /* Remove margin for better icon alignment */
 }
 
-/* Show hover effect for collapsed mode */
+/* Add hover effect for collapsed mode */
 .sidebar.collapsed:hover {
     width: 250px; /* Expand width on hover */
 }
@@ -165,8 +178,6 @@ header .logout-button {
         width: 200px;
     }
 }
-
-
 
 
 /* Content Section */
@@ -340,9 +351,269 @@ header .logout-button {
         margin-bottom: 20px;
     }
 }
+/* END of client-select-container */
+
+
+
+/* Start of billing-container * *** */
+/* Billing Form Container */
+.billing-container {
+    margin-top: 50px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+}
+
+/* Billing Form Title */
+.billing-container h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #34495e;
+    text-align: center;
+    font-weight: 700;
+}
+
+/* Billing Form Layout: Grid with 2 columns */
+.billing-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+/* Form Group Styling */
+.billing-form-row .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Form Label Styling */
+.billing-form-row .form-group label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+/* Form Input Styling */
+.billing-form-row .form-group input,
+.billing-form-row .form-group select {
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #dfe4ea;
+    font-size: 16px;
+    color: #34495e;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+    width: 100%; /* Full width inputs */
+}
+
+/* Focus Effect on Inputs */
+.billing-form-row .form-group input:focus,
+.billing-form-row .form-group select:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+/* Button Container to Center the Submit Button */
+.billing-container .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* Submit Button Styling */
+.save-btn {
+    background-color: #2980b9;
+    color: white;
+    padding: 14px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    width: auto;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.save-btn:hover {
+    background-color: #3498db;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .billing-form-row {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+
+    .billing-container {
+        padding: 20px;
+    }
+
+    .save-btn {
+        width: 100%; /* Make the submit button full width on small screens */
+    }
+}
+
+
+
+/* END of Billing-container styling */
+
+
+
+/* START of History Notes Section Styling */
+/* History / Notes Section */
+.history-notes-container {
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #f7f9fc;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 1800px; /* Limiting width to maintain alignment */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.history-notes-container h2 {
+    font-size: 24px;
+    color: #34495e;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* 2-Column Layout */
+.history-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.column {
+    width: 48%; /* Each column takes up 48% of the width */
+    display: flex;
+    flex-direction: column;
+}
+
+.left-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.left-column .editable {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #dcdfe1;
+    font-size: 16px;
+    box-sizing: border-box;
+    min-height: 400px;  /* Height adjustment */
+    overflow-y: auto;
+    background-color: #fff;
+    resize: vertical;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin-bottom: 20px;
+}
+
+.left-column button.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.left-column button.submit-btn:hover {
+    background-color: #3498db;
+}
+
+.left-column button.submit-btn:active {
+    transform: scale(0.98);
+}
+
+/* Right Column - Displaying Notes (with Images) */
+.right-column {
+    background-color: #fff;
+    border-radius: 6px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-height: 400px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.right-column h3 {
+    font-size: 20px;
+    color: #34495e;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.notes-container {
+    display: flex;
+    flex-direction: column-reverse; /* Ensure the latest notes appear at the top */
+    gap: 10px;
+}
+
+.note {
+    background-color: #ecf0f1;
+    padding: 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: #34495e;
+}
+
+.note strong {
+    color: #2980b9;
+    font-weight: bold;
+}
+
+.note img {
+    max-width: 100%;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .history-columns {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .left-column,
+    .right-column {
+        width: 100%;
+    }
+
+    .left-column button.submit-btn {
+        padding: 12px;
+    }
+}
+
+
+/* END of History Notes Section Styling */
 
 
 /* Footer Section */
+
+
 footer {
     background-color: #333;
     color: white;
@@ -362,7 +633,7 @@ footer .footer-logo {
 /* Client Select and Create New User Section */
 .client-select-container {
     margin-top: 50px;
-    padding: 30px;
+    padding: 10px;
     background-color: #f7f9fc;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -414,7 +685,7 @@ footer .footer-logo {
 
 /* Style for the input field */
 .search-bar {
-    width: 30%;
+    width: 100%;
     padding: 12px 40px 12px 12px;  /* Add padding to the right for the icon */
     border-radius: 6px;
     border: 1px solid #dcdfe1;
@@ -484,9 +755,3 @@ footer .footer-logo {
     margin-top: 30px;  /* Create space between client select and stats sections */
 }
 /* END of Client Select and Create New User Section */
-
-/* Create New User Button Click - Anchoring/ Scrolling*/
-html {
-    scroll-behavior: smooth;  /* This enables smooth scrolling for anchor links */
-}
-/* End of Create New User Button Click - Anchoring/ Scrolling*/
