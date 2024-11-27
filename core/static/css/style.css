@@ -361,12 +361,11 @@ header .logout-button {
     margin-top: 50px;
     padding: 40px;
     background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-    overflow: hidden;
 }
 
 /* Billing Form Title */
@@ -378,16 +377,17 @@ header .logout-button {
     font-weight: 700;
 }
 
-/* Billing Form Layout: Grid with 2 columns */
+/* Billing Form Layout */
 .billing-form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: space-between;
 }
 
 /* Form Group Styling */
 .billing-form-row .form-group {
+    flex: 1 1 48%; /* Each form group takes up 48% of the width */
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -398,7 +398,6 @@ header .logout-button {
     font-size: 16px;
     font-weight: 500;
     color: #2c3e50;
-    margin-bottom: 5px;
 }
 
 /* Form Input Styling */
@@ -406,12 +405,11 @@ header .logout-button {
 .billing-form-row .form-group select {
     padding: 14px;
     border-radius: 8px;
-    border: 1px solid #dfe4ea;
+    border: 1px solid #e0e5ec;
     font-size: 16px;
     color: #34495e;
     box-sizing: border-box;
     transition: border-color 0.3s ease-in-out;
-    width: 100%; /* Full width inputs */
 }
 
 /* Focus Effect on Inputs */
@@ -421,47 +419,41 @@ header .logout-button {
     outline: none;
 }
 
-/* Button Container to Center the Submit Button */
-.billing-container .button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-
 /* Submit Button Styling */
 .save-btn {
     background-color: #2980b9;
     color: white;
-    padding: 14px 25px;
+    padding: 14px 20px;
     border: none;
     border-radius: 8px;
     font-size: 18px;
     font-weight: 600;
     cursor: pointer;
-    width: auto;
+    width: 100%;
+    margin-top: 30px;
     transition: background-color 0.3s ease-in-out;
 }
 
+/* Hover Effect on Submit Button */
 .save-btn:hover {
     background-color: #3498db;
 }
 
-/* Responsive Design */
+/* Responsive Design for Billing Container */
 @media (max-width: 768px) {
     .billing-form-row {
-        grid-template-columns: 1fr; /* Single column on smaller screens */
+        flex-direction: column; /* Stack items vertically on smaller screens */
     }
 
-    .billing-container {
-        padding: 20px;
+    .billing-form-row .form-group {
+        width: 100%; /* Ensure each form group takes full width on small screens */
+        margin-bottom: 20px;
     }
 
     .save-btn {
-        width: 100%; /* Make the submit button full width on small screens */
+        width: 100%; /* Ensure the button takes full width on smaller screens */
     }
 }
-
-
 
 /* END of Billing-container styling */
 

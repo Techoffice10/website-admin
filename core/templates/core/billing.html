@@ -81,7 +81,41 @@
 <!-- Start of Billing form Submit Container -->
 <div class="billing-container">
     <h2>Billing Section</h2>
-    <form method="POST">
+
+    <!-- Search Form to find Billing details -->
+    <form method="GET" action="{% url 'search_billing' %}">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="search_ticket_id">Search by Ticket ID or Invoice No:</label>
+            <input type="text" name="search_query" id="search_ticket_id" value="{{ search_query }}" placeholder="Enter Ticket ID or Invoice No" required>
+            <button type="submit" class="search-btn">Search</button>
+        </div>
+    </form>
+
+    <!-- Display Search Results -->
+    {% if billing_data %}
+        <div class="search-results">
+            <h3>Search Results:</h3>
+            <ul>
+                {% for billing in billing_data %}
+                    <li>
+                        <strong>Ticket ID:</strong> {{ billing.ticket_id }}<br>
+                        <strong>Invoice No:</strong> {{ billing.invoice_no }}<br>
+                        <strong>Client Name:</strong> {{ billing.client_name }}<br>
+                        <strong>Service Type:</strong> {{ billing.service_type }}<br>
+                        <strong>Client Address:</strong> {{ billing.client_address }}<br>
+                        <strong>Billing To:</strong> {{ billing.billing_to }}<br>
+                        <strong>Invoice Date:</strong> {{ billing.invoice_date }}<br>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% elif billing_data is not none %}
+        <p>No results found for your search query.</p>
+    {% endif %}
+
+    <!-- Billing Form for saving or updating details -->
+    <form method="POST" action="{% url 'save_billing' %}">
         {% csrf_token %}
         <div class="column">
             <div class="form-group">
@@ -142,6 +176,8 @@
         </div>
     </form>
 </div>
+
+
 
 
 

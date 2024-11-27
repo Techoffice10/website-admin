@@ -17,26 +17,22 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from core import views
-from django.contrib.auth import views as auth_views # For user login/logout auth Functionality
+from django.contrib.auth import views as auth_views  # For user login/logout auth functionality
 from django.conf import settings
 from django.conf.urls.static import static
-
-
-
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('register/', views.admin_register, name='register'),
     path('login/', views.CustomLoginView.as_view(), name='login'),  # Use the custom login view
-    path('dashboard/', views.dashboard, name='dashboard'), # Dashboard URL
+    path('dashboard/', views.dashboard, name='dashboard'),  # Dashboard URL
     path('dashboard/usercreation/', views.user_creation, name='user_creation'),  # New User Creation URL
-    path('dashboard/billing/', views.billing_view, name='billing'),  # Billing URL
-    path('', include('core.urls')), # Include core app URLs (if any)
-    #path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'), # Log out using Django's auth system
-    path('search_user/', views.search_user, name='search_user'), # search_user view
-
+    path('dashboard/billing/', views.billing_view, name='billing'),  # Billing form and search URL
+    path('search_billing/', views.search_billing, name='search_billing'),  # Search billing entry
+    path('save_billing/', views.save_billing, name='save_billing'),
+    path('', include('core.urls')),  # Include core app URLs (if any)
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),  # Log out using Django's auth system
+    path('search_user/', views.search_user, name='search_user'),  # Search user functionality
 ]
 
 # Serve static files in development
