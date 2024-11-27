@@ -4,6 +4,9 @@ use website_db;
 DESCRIBE core_userinfo;
 SHOW COLUMNS FROM core_userinfo;
 
+SET SQL_SAFE_UPDATES = 0; -- Safe mode is OFF
+SET SQL_SAFE_UPDATES = 1; -- Safe mode is On
+
 INSERT INTO core_userinfo (
     user_name,
     full_name,
@@ -36,5 +39,49 @@ VALUES (
     NULL,                         -- suspended_date 
     'active'                      -- status
 );
+
+INSERT INTO core_billingmodel (
+    client_name,
+    client_address,
+    billing_to,
+    service_type,
+    bill_description,
+    ticket_id,
+    created_date,
+    emailed,
+    comments,
+    invoice_no,
+    invoice_date
+)
+VALUES (
+    'CIC Toronto',     -- client_name,
+    '155-2960 Drew Road Malton Mississauga,ON L4T 0A5',  -- client_address,
+    'CIC Toronto',    -- billing_to,
+    NULL,             -- service_type,
+    'Outlook & Storage Issue 75.00',       -- bill_description,
+    '#21368',         -- ticket_id,
+    NULL,            -- created_date,
+     'Email &Hand Submitted',    -- emailed,
+    '',              -- comments,
+    '',              -- invoice_no,
+    NULL,            -- invoice_date
+);
+
+
+ALTER TABLE core_userinfo
+ADD COLUMN history VARCHAR(255);
+
+describe core_billingmodel;
+ALTER TABLE core_billingmodel DROP COLUMN emailed;
+DROP TABLE IF EXISTS core_billingmodel;
+DELETE FROM core_billingmodel;
+
+DROP TABLE core_billingmodel;
+
+select * from core_billingmodel;
+
+
+
+
 
 select * from core_userinfo;

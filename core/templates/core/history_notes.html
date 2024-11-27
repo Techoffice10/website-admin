@@ -9,6 +9,102 @@
     
 <!-- Include JavaScript for popup -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
+
+<!-- START of Note Submission & Display Case History-->
+<script>
+    // Function to handle the submit action
+    function submitNote() {
+        // Get the content of the editable div (including text and images)
+        const noteContent = document.getElementById('case-history').innerHTML.trim();
+        if (noteContent) {
+            // Get current date and time
+            const currentDate = new Date();
+            const dateTime = currentDate.toLocaleString();
+
+            // Create a new note element
+            const noteElement = document.createElement('div');
+            noteElement.classList.add('note');
+            
+            // Add the note content with the date and time
+            noteElement.innerHTML = `<strong>${dateTime}</strong><br>${noteContent}`;
+
+            // Add the new note to the top of the notes container
+            const notesContainer = document.getElementById('notes-container');
+            notesContainer.insertBefore(noteElement, notesContainer.firstChild);
+
+            // Clear the editable div after submitting the note
+            document.getElementById('case-history').innerHTML = '';
+        }
+    }
+
+    // Event listener for handling image pasting
+    document.getElementById('case-history').addEventListener('paste', function(e) {
+        const items = e.clipboardData.items;
+        for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            if (item.type.indexOf('image') !== -1) {
+                const file = item.getAsFile();
+                const reader = new FileReader();
+                
+                reader.onloadend = function () {
+                    const img = document.createElement('img');
+                    img.src = reader.result;
+                    img.style.maxWidth = '100%'; // Limit the image width to the container width
+                    img.style.borderRadius = '6px';
+                    document.getElementById('case-history').appendChild(img);
+                };
+                
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+    });
+</script>
+<!-- END of Note Submission & Display Case History-->    
+
+<!-- START of  JavaScript to listen for the search box and make an AJAX request to the MYSQL backend.--> 
+<script>
+    document.getElementById('search-box').addEventListener('input', function() {
+        const query = this.value;
+        
+        // Send an AJAX request if the search term is not empty
+        if (query) {
+            fetch(`/search_user/?query=${query}`, {
+                method: 'GET',
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);  // Handle no results found
+                } else {
+                    // Populate form fields with the result data
+                    document.getElementById('user_name').value = data.user_name || '';
+                    document.getElementById('full_name').value = data.full_name || '';
+                    document.getElementById('phone_no').value = data.phone_no || '';
+                    document.getElementById('email').value = data.email || '';
+                    document.getElementById('node').value = data.node || '';
+                    document.getElementById('branch').value = data.branch || '';
+                    document.getElementById('ext_no').value = data.ext_no || '';
+                    document.getElementById('port_ip').value = data.port_ip || '';
+                    document.getElementById('password').value = data.password || '';
+                    document.getElementById('power_broker_id').value = data.power_broker_id || '';
+                    document.getElementById('applied_rating_id').value = data.applied_rating_id || '';
+                    document.getElementById('user_creation_date').value = data.user_creation_date || '';
+                    document.getElementById('suspended_date').value = data.suspended_date || '';
+                    document.getElementById('status').value = data.status || '';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    });
+</script>
+<!-- END of  JavaScript to listen for the search box and make an AJAX request to the MYSQL backend.--> 
+
 
 
 </head>
@@ -21,6 +117,8 @@
             <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo">
         </div>
         <div class="search-logout">
+            <input type="text" placeholder="Search..." class="search-bar">
+            
             <!-- Log Out Button Form -->
             <form action="{% url 'logout' %}" method="POST">
                 {% csrf_token %}
@@ -28,7 +126,6 @@
             </form>
         </div>
     </header>
-
 
 <!-- Sidebar Section -->
 <div class="sidebar">
@@ -40,23 +137,19 @@
     <!-- Sidebar Menu -->
     <ul class="sidebar-menu">
         <li><a href="{% url 'dashboard' %}" class="sidebar-link">
-            <img src="{% static 'images/sidebar11.png' %}" alt="Dashboard" class="sidebar-icon"> <!-- Dashboard icon -->
+            <i class="icon">&#128200;</i> <!-- Dashboard icon -->
             <span class="link-text">Dashboard</span>
         </a></li>
-        <li><a href="{% url 'billing' %}" class="sidebar-link">
-            <img src="{% static 'images/sidebar12.png' %}" alt="Reports" class="sidebar-icon"> <!-- Reports icon -->
-            <span class="link-text">Billing</span>
+        <li><a href="#" class="sidebar-link">
+            <i class="icon">&#128202;</i> <!-- Reports icon -->
+            <span class="link-text">Reports</span>
         </a></li>
         <li><a href="#" class="sidebar-link">
-            <img src="{% static 'images/sidebar33.png' %}" alt="Customers" class="sidebar-icon"> <!-- Customers icon -->
+            <i class="icon">&#128100;</i> <!-- Customers icon -->
             <span class="link-text">Customers</span>
         </a></li>
         <li><a href="#" class="sidebar-link">
-            <img src="{% static 'images/sidebar15.png' %}" alt="Tickets" class="sidebar-icon"> <!-- Settings icon -->
-            <span class="link-text">Tickets</span>
-        </a></li>
-        <li><a href="#" class="sidebar-link">
-            <img src="{% static 'images/sidebar14.png' %}" alt="Settings" class="sidebar-icon"> <!-- Settings icon -->
+            <i class="icon">&#9881;</i> <!-- Settings icon -->
             <span class="link-text">Settings</span>
         </a></li>
     </ul>
@@ -66,13 +159,13 @@
     <!-- Main Content Section -->
     <main class="content">
         
-<!-- Start of Client Select and Create New User Container -->
+ <!-- Start of Client Select and Create New User Container -->
 <div class="client-select-container">
     <div class="client-select-row">
         <!-- First Column: Client Dropdown -->
         <div class="column">
             <select id="client-name" class="client-dropdown input-field">
-                <option value="disabled">Select Client Name</option>
+                <option value="disabled" >Select Client Name</option>
                 <option value="diamond-insurance">Diamond Insurance</option>
                 <option value="gracious-hardwood">Gracious Hardwood</option>
                 <option value="haulage-na">Haulage NA</option>
@@ -82,24 +175,26 @@
             </select>
         </div>
 
-        <div class="form-row">
+<!-- Second Column: Search Box -->
+<div class="search-container">
+    <form method="GET" action="{% url 'search_user' %}">
+        {% csrf_token %}
+        <input type="text" name="query" id="search-box" placeholder="Search by username or node..." required>
+        <button type="submit">Search</button>
+    </form>
+</div>
 
-            <input type="text" id="client_plan" name="client_plan" value="{{ user_info.client_plan }}" placeholder="Current Plan" class="editable-field">
-        </div>
-
+        <!-- Third Column: Create New User Button -->
         <div class="column">
-            <button class="save-btn" onclick="window.location.href='/dashboard/usercreation/'">Create New User</button>
+            <button class="save-btn">Create New User</button>
         </div>
-        
-        
- </div>
+    </div>
 </div>
 <!-- END of Client Select and Create New User Container -->
 
 
-
 <!-- Add margin between Client Select and Stats Section -->
-    <div class="space-between-sections"></div>
+<div class="space-between-sections"></div>
 
 <!-- START of Stats Section -->
             <div class="stats-row">
@@ -132,49 +227,37 @@
                     <p>50</p>
                 </div>
             </div>
-        </div>
 <!-- END of Stats Section -->
 
 
 
-<!-- Start of User SEARCH RESULTS -->
+<!-- Start of Search Results READ ONLY -- User Info SEARCH RESULTS -->
 <div class="client-select-container">
-    <div class="search-header">
-        <h2>User Search Results</h2>
-    <!-- Search Box -->
-    <div class="search-column">
-        <form method="GET" action="{% url 'search_user' %}">
-            {% csrf_token %}
-            <input type="text" name="query" id="search-box" placeholder="Search by username or node..." required class="search-bar">
-        </form>
-    </div>
-</div>
-
+    <h2>User Information</h2>
     <form method="POST" class="user-info-form" id="user-info-form">
         {% csrf_token %}
-        
         
         <!-- First Column -->
         <div class="column">
             <div class="form-row">
                 <label for="user_name">User name</label>
-                <input type="text" id="user_name" name="user_name" value="{{ user_info.user_name }}" class="editable-field">
+                <input type="text" id="user_name" name="user_name" value="{{ user_info.user_name }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="full_name">Full name</label>
-                <input type="text" id="full_name" name="full_name" value="{{ user_info.full_name }}" class="editable-field">
+                <input type="text" id="full_name" name="full_name" value="{{ user_info.full_name }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="phone_no">Phone no</label>
-                <input type="text" id="phone_no" name="phone_no" value="{{ user_info.phone_no }}" class="editable-field">
+                <input type="text" id="phone_no" name="phone_no" value="{{ user_info.phone_no }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="email">Email</label>
-                <input type="text" id="email" name="email" value="{{ user_info.email }}" class="editable-field">
+                <input type="text" id="email" name="email" value="{{ user_info.email }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="node">Node</label>
-                <input type="text" id="node" name="node" value="{{ user_info.node }}" class="editable-field">
+                <input type="text" id="node" name="node" value="{{ user_info.node }}" readonly class="readonly-field">
             </div>
         </div>
 
@@ -182,23 +265,23 @@
         <div class="column">
             <div class="form-row">
                 <label for="branch">Branch</label>
-                <input type="text" id="branch" name="branch" value="{{ user_info.branch }}" class="editable-field">
+                <input type="text" id="branch" name="branch" value="{{ user_info.branch }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="ext_no">Ext No</label>
-                <input type="text" id="ext_no" name="ext_no" value="{{ user_info.ext_no }}" class="editable-field">
+                <input type="text" id="ext_no" name="ext_no" value="{{ user_info.ext_no }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="port_ip">Port IP</label>
-                <input type="text" id="port_ip" name="port_ip" value="{{ user_info.port_ip }}" class="editable-field">
+                <input type="text" id="port_ip" name="port_ip" value="{{ user_info.port_ip }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="password">Password</label>
-                <input type="text" id="password" name="password" value="{{ user_info.password }}" class="editable-field">
+                <input type="text" id="password" name="password" value="{{ user_info.password }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="power_broker_id">Power Broker ID</label>
-                <input type="text" id="power_broker_id" name="power_broker_id" value="{{ user_info.power_broker_id }}" class="editable-field">
+                <input type="text" id="power_broker_id" name="power_broker_id" value="{{ user_info.power_broker_id }}" readonly class="readonly-field">
             </div>
         </div>
 
@@ -206,37 +289,30 @@
         <div class="column">
             <div class="form-row">
                 <label for="applied_rating_id">Applied Rating ID</label>
-                <input type="text" id="applied_rating_id" name="applied_rating_id" value="{{ user_info.applied_rating_id }}" class="editable-field">
+                <input type="text" id="applied_rating_id" name="applied_rating_id" value="{{ user_info.applied_rating_id }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="user_creation_date">Creation Date</label>
-                <input type="text" id="user_creation_date" name="user_creation_date" value="{{ user_info.user_creation_date }}" class="editable-field">
+                <input type="text" id="user_creation_date" name="user_creation_date" value="{{ user_info.user_creation_date }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="suspended_date">Suspended Date</label>
-                <input type="text" id="suspended_date" name="suspended_date" value="{{ user_info.suspended_date }}" class="editable-field">
+                <input type="text" id="suspended_date" name="suspended_date" value="{{ user_info.suspended_date }}" readonly class="readonly-field">
             </div>
             <div class="form-row">
                 <label for="status">Status</label>
-                <input type="text" id="status" name="status" value="{{ user_info.status }}" class="editable-field">
-            </div>
-            <div class="form-row">
-                <label for="case_history">Case History</label>
-                <textarea id="case_history" name="case_history" class="editable-field" style="width: 100%; height: 150px;"></textarea>
+                <input type="text" id="status" name="status" value="{{ user_info.status }}" readonly class="readonly-field">
             </div>
         </div>
     </form>
 </div>
-<!-- End of User SEARCH RESULTS -->
+<!-- End of Search Results READ ONLY -- User Info SEARCH RESULTS -->
 
 
 
-
-
-
-<!-- start Create New User Section-->
+<!-- User Info Container -- Create New User-->
 <div class="client-select-container">
-    <h2>Create New User</h2>
+    <h2>User Information</h2>
     <form method="POST" class="user-info-form">
         {% csrf_token %}
         
@@ -314,13 +390,38 @@
         </div>
     </form>
 </div>
-<!-- End of Create New User Section-->
+
+
+<!-- START of History / Notes Section -->
+
+<div class="history-notes-container">
+    <h2>History/ Notes</h2>
+    
+    <!-- Start of the 2-Column Layout -->
+    <div class="history-columns">
+        <!-- First Column: Content Editable Div for entering notes (with support for pasting images) -->
+        <div class="column left-column">
+            <div id="case-history" class="editable" contenteditable="true" placeholder="Enter the complete history of the case details here..."></div>
+            <button type="submit" class="submit-btn" onclick="submitNote()">Submit</button>
+        </div>
+
+        <!-- Second Column: Displaying submitted notes (text + images) -->
+        <div class="column right-column">
+            <h3>Case History</h3>
+            <div id="notes-container" class="notes-container">
+                <!-- Notes will appear here dynamically -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- END of History / Notes Section -->
+
 
     </main>
 
-
-
-<!-- Footer Section -->
+    <!-- Footer Section -->
     <footer>
         <div class="footer-content">
             <p>Tech Office Inc</p>

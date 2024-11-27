@@ -48,9 +48,7 @@
         <div class="logo-search">
             <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo">
         </div>
-        <div class="search-logout">
-            <input type="text" placeholder="Search..." class="search-bar">
-            
+        <div class="search-logout">    
             <!-- Log Out Button Form -->
             <form action="{% url 'logout' %}" method="POST">
                 {% csrf_token %}
