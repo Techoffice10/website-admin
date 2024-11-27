@@ -455,6 +455,67 @@ header .logout-button {
     }
 }
 
+/* Styling for Search and Create Billing Toggles */
+
+/* Initially hidden sections */
+.toggle-container {
+    display: none;
+}
+
+/* Active class to show the content */
+.toggle-container.active {
+    display: block;
+}
+
+/* Search Section Styling */
+#search-results-container {
+    margin-top: 20px;
+}
+
+/* Button Styling */
+button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:focus {
+    outline: none;
+}
+
+button.search-btn {
+    margin-top: 10px;
+    background-color: #2196F3;
+}
+
+button.create-billing-btn {
+    margin-top: 20px;
+    background-color: #ff9800;
+}
+
+/* Smooth transitions for expanding and collapsing */
+.toggle-container {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Search Results Styling */
+.search-results {
+    margin-top: 20px;
+}
+
+/*Ensure Correct Visibility of the Search Results Section */
+#search-results-container {
+    display: none;
+}
+
+#search-results-container.active {
+    display: block;
+}
+
+
 /* END of Billing-container styling */
 
 

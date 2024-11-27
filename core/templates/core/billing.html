@@ -7,7 +7,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Link to the stylesheet -->
 
-    <!-- Display Success/Error Messages:-->
+    <!-- Display Success/Error Messages -->
     {% if messages %}
     <div class="alert alert-success">
         {% for message in messages %}
@@ -16,13 +16,31 @@
     </div>
     {% endif %}
 
-
-<!-- Include JavaScript for popup -->
+    <!-- Include JavaScript for popup -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <!-- JavaScript for toggling visibility -->
+    <script>
+        // Function to toggle visibility of search results
+        function toggleSearchResults() {
+            const searchResultsContainer = document.getElementById("search-results-container");
+            searchResultsContainer.classList.toggle("active");
+        }
 
+        // Function to toggle visibility of create billing form
+        function toggleCreateBillingForm() {
+            const createBillingForm = document.getElementById("create-billing-form");
+            createBillingForm.classList.toggle("active");
+        }
+
+        // Trigger visibility of search results after page load if there's billing data
+        window.onload = function() {
+            {% if billing_data %}
+            toggleSearchResults();  // Automatically show the search results if data is present
+            {% endif %}
+        }
+    </script>
 </head>
-
 
 <body>
     <!-- Header Section -->
@@ -41,147 +59,141 @@
         </div>
     </header>
 
+    <!-- Sidebar Section -->
+    <div class="sidebar">
+        <div class="sidebar-toggle-btn">
+            <button class="toggle-btn">&#8594;</button> <!-- Right Arrow to expand -->
+        </div>
 
-<!-- Sidebar Section -->
-<div class="sidebar">
-    <!-- Toggle Button for Expanding/Collapsing Sidebar -->
-    <div class="sidebar-toggle-btn">
-        <button class="toggle-btn">&#8594;</button> <!-- Right Arrow to expand -->
+        <ul class="sidebar-menu">
+            <li><a href="{% url 'dashboard' %}" class="sidebar-link">
+                <img src="{% static 'images/sidebar11.png' %}" alt="Dashboard" class="sidebar-icon">
+                <span class="link-text">Dashboard</span>
+            </a></li>
+            <li><a href="{% url 'billing' %}" class="sidebar-link">
+                <img src="{% static 'images/sidebar12.png' %}" alt="Reports" class="sidebar-icon">
+                <span class="link-text">Billing</span>
+            </a></li>
+            <li><a href="#" class="sidebar-link">
+                <img src="{% static 'images/sidebar33.png' %}" alt="Customers" class="sidebar-icon">
+                <span class="link-text">Customers</span>
+            </a></li>
+            <li><a href="#" class="sidebar-link">
+                <img src="{% static 'images/sidebar15.png' %}" alt="Settings" class="sidebar-icon">
+                <span class="link-text">Tickets</span>
+            </a></li>
+            <li><a href="#" class="sidebar-link">
+                <img src="{% static 'images/sidebar14.png' %}" alt="Settings" class="sidebar-icon">
+                <span class="link-text">Settings</span>
+            </a></li>
+        </ul>
     </div>
-
-    <!-- Sidebar Menu -->
-    <ul class="sidebar-menu">
-        <li><a href="{% url 'dashboard' %}" class="sidebar-link">
-            <img src="{% static 'images/sidebar11.png' %}" alt="Dashboard" class="sidebar-icon"> <!-- Dashboard icon -->
-            <span class="link-text">Dashboard</span>
-        </a></li>
-        <li><a href="{% url 'billing' %}" class="sidebar-link">
-            <img src="{% static 'images/sidebar12.png' %}" alt="Reports" class="sidebar-icon"> <!-- Reports icon -->
-            <span class="link-text">Billing</span>
-        </a></li>
-        <li><a href="#" class="sidebar-link">
-            <img src="{% static 'images/sidebar33.png' %}" alt="Customers" class="sidebar-icon"> <!-- Customers icon -->
-            <span class="link-text">Customers</span>
-        </a></li>
-        <li><a href="#" class="sidebar-link">
-            <img src="{% static 'images/sidebar15.png' %}" alt="Tickets" class="sidebar-icon"> <!-- Settings icon -->
-            <span class="link-text">Tickets</span>
-        </a></li>
-        <li><a href="#" class="sidebar-link">
-            <img src="{% static 'images/sidebar14.png' %}" alt="Settings" class="sidebar-icon"> <!-- Settings icon -->
-            <span class="link-text">Settings</span>
-        </a></li>
-    </ul>
-</div>
-
 
     <!-- Main Content Section -->
     <main class="content">
-        
-<!-- Start of Billing form Submit Container -->
-<div class="billing-container">
-    <h2>Billing Section</h2>
+        <div class="billing-container">
+            <h2>Billing Section</h2>
 
-    <!-- Search Form to find Billing details -->
-    <form method="GET" action="{% url 'search_billing' %}">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="search_ticket_id">Search by Ticket ID or Invoice No:</label>
-            <input type="text" name="search_query" id="search_ticket_id" value="{{ search_query }}" placeholder="Enter Ticket ID or Invoice No" required>
-            <button type="submit" class="search-btn">Search</button>
+            <!-- Search Form to find Billing details -->
+            <form method="GET" action="{% url 'search_billing' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="search_ticket_id">Search by Ticket ID or Invoice No:</label>
+                    <input type="text" name="search_query" id="search_ticket_id" value="{{ search_query }}" placeholder="Enter Ticket ID or Invoice No" required>
+                    <button type="submit" class="search-btn">Search</button>
+                </div>
+            </form>
+
+            <!-- Display Search Results (Initially hidden) -->
+            <div id="search-results-container" class="toggle-container">
+                {% if billing_data %}
+                <div class="search-results">
+                    <h3>Search Results:</h3>
+                    <ul>
+                        {% for billing in billing_data %}
+                            <li>
+                                <strong>Ticket ID:</strong> {{ billing.ticket_id }}<br>
+                                <strong>Invoice No:</strong> {{ billing.invoice_no }}<br>
+                                <strong>Client Name:</strong> {{ billing.client_name }}<br>
+                                <strong>Service Type:</strong> {{ billing.service_type }}<br>
+                                <strong>Client Address:</strong> {{ billing.client_address }}<br>
+                                <strong>Billing To:</strong> {{ billing.billing_to }}<br>
+                                <strong>Invoice Date:</strong> {{ billing.invoice_date }}<br>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% else %}
+                <p>No results found for your search query.</p>
+                {% endif %}
+            </div>
+
+            <!-- Create Billing Button (Initially hidden form) -->
+            <button type="button" class="create-billing-btn" onclick="toggleCreateBillingForm()">Create Billing</button>
+
+            <div id="create-billing-form" class="toggle-container">
+                <form method="POST" action="{% url 'save_billing' %}">
+                    {% csrf_token %}
+                    <div class="column">
+                        <div class="form-group">
+                            <label for="{{ form.ticket_id.id_for_label }}">Ticket ID:</label>
+                            {{ form.ticket_id }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.client_name.id_for_label }}">Client Name:</label>
+                            {{ form.client_name }}
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="form-row">
+                            <label for="{{ form.client_address.id_for_label }}">Client Address:</label>
+                            {{ form.client_address }}
+                        </div>
+                        <div class="form-row">
+                            <label for="{{ form.billing_to.id_for_label }}">Billing To:</label>
+                            {{ form.billing_to }}
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="form-group">
+                            <label for="{{ form.service_type.id_for_label }}">Service Type:</label>
+                            {{ form.service_type }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.bill_description.id_for_label }}">Bill Description:</label>
+                            {{ form.bill_description }}
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="form-group">
+                            <label for="{{ form.emailed.id_for_label }}">Emailed:</label>
+                            {{ form.emailed }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.comments.id_for_label }}">Comments:</label>
+                            {{ form.comments }}
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <div class="form-group">
+                            <label for="{{ form.invoice_no.id_for_label }}">Invoice No:</label>
+                            {{ form.invoice_no }}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ form.invoice_date.id_for_label }}">Invoice Date:</label>
+                            {{ form.invoice_date }}
+                        </div>
+
+                        <button type="submit" class="save-btn">Submit Billing</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
-
-    <!-- Display Search Results -->
-    {% if billing_data %}
-        <div class="search-results">
-            <h3>Search Results:</h3>
-            <ul>
-                {% for billing in billing_data %}
-                    <li>
-                        <strong>Ticket ID:</strong> {{ billing.ticket_id }}<br>
-                        <strong>Invoice No:</strong> {{ billing.invoice_no }}<br>
-                        <strong>Client Name:</strong> {{ billing.client_name }}<br>
-                        <strong>Service Type:</strong> {{ billing.service_type }}<br>
-                        <strong>Client Address:</strong> {{ billing.client_address }}<br>
-                        <strong>Billing To:</strong> {{ billing.billing_to }}<br>
-                        <strong>Invoice Date:</strong> {{ billing.invoice_date }}<br>
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% elif billing_data is not none %}
-        <p>No results found for your search query.</p>
-    {% endif %}
-
-    <!-- Billing Form for saving or updating details -->
-    <form method="POST" action="{% url 'save_billing' %}">
-        {% csrf_token %}
-        <div class="column">
-            <div class="form-group">
-                <label for="{{ form.ticket_id.id_for_label }}">Ticket ID:</label>
-                {{ form.ticket_id }}
-            </div>
-            <div class="form-group">
-                <label for="{{ form.client_name.id_for_label }}">Client Name:</label>
-                {{ form.client_name }}
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="form-row">
-                <label for="{{ form.client_address.id_for_label }}">Client Address:</label>
-                {{ form.client_address }}
-            </div>
-            <div class="form-row">
-                <label for="{{ form.billing_to.id_for_label }}">Billing To:</label>
-                {{ form.billing_to }}
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="form-group">
-                <label for="{{ form.service_type.id_for_label }}">Service Type:</label>
-                {{ form.service_type }}
-            </div>
-            <div class="form-group">
-                <label for="{{ form.bill_description.id_for_label }}">Bill Description:</label>
-                {{ form.bill_description }}
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="form-group">
-                <label for="{{ form.emailed.id_for_label }}">Emailed:</label>
-                {{ form.emailed }}
-            </div>
-            <div class="form-group">
-                <label for="{{ form.comments.id_for_label }}">Comments:</label>
-                {{ form.comments }}
-            </div>
-        </div>
-
-        <div class="column">
-            <div class="form-group">
-                <label for="{{ form.invoice_no.id_for_label }}">Invoice No:</label>
-                {{ form.invoice_no }}
-            </div>
-
-            <div class="form-group">
-                <label for="{{ form.invoice_date.id_for_label }}">Invoice Date:</label>
-                {{ form.invoice_date }}
-            </div>
-
-            <button type="submit" class="save-btn">Submit Billing</button>
-        </div>
-    </form>
-</div>
-
-
-
-
-
-
     </main>
 
     <!-- Footer Section -->
@@ -193,45 +205,26 @@
         </div>
     </footer>
 
-<!-- JavaScript for toggling sidebar -->
-// JavaScript for toggling sidebar
-<script>
-    // Get the elements
-    const toggleBtn = document.querySelector('.sidebar-toggle-btn');
-    const sidebar = document.querySelector('.sidebar');
-
-    // Add an event listener to toggle the sidebar when the button is clicked
-    toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-    });
-
-    // Optional: Auto-expand the sidebar on hover by adding and removing the 'collapsed' class
-    sidebar.addEventListener('mouseenter', () => {
-        if (sidebar.classList.contains('collapsed')) {
-            sidebar.classList.remove('collapsed');
-        }
-    });
-
-    sidebar.addEventListener('mouseleave', () => {
-        if (!sidebar.classList.contains('collapsed')) {
-            sidebar.classList.add('collapsed');
-        }
-    });
-</script>
-
-
-
-    <!-- Show Success Message (using Django messages framework) -->
-    {% if messages %}
+    <!-- JavaScript for toggling sidebar -->
     <script>
-        {% for message in messages %}
-        Swal.fire({
-            title: '{{ message }}',
-            icon: 'success',
-            confirmButtonText: 'OK'
+        // JavaScript for toggling sidebar
+        const toggleBtn = document.querySelector('.sidebar-toggle-btn');
+        const sidebar = document.querySelector('.sidebar');
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
         });
-        {% endfor %}
+
+        sidebar.addEventListener('mouseenter', () => {
+            if (sidebar.classList.contains('collapsed')) {
+                sidebar.classList.remove('collapsed');
+            }
+        });
+
+        sidebar.addEventListener('mouseleave', () => {
+            if (!sidebar.classList.contains('collapsed')) {
+                sidebar.classList.add('collapsed');
+            }
+        });
     </script>
-    {% endif %}
 </body>
 </html>
