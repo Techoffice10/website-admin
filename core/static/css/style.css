@@ -475,7 +475,7 @@ header .logout-button {
 /* Button Styling */
 button {
     padding: 10px 15px;
-    background-color: #4CAF50;
+    background-color: #3498db;;
     color: white;
     border: none;
     border-radius: 4px;
@@ -493,7 +493,7 @@ button.search-btn {
 
 button.create-billing-btn {
     margin-top: 20px;
-    background-color: #ff9800;
+    background-color: #3498db;;
 }
 
 /* Smooth transitions for expanding and collapsing */
@@ -550,9 +550,10 @@ button.create-billing-btn {
 }
 
 .column {
-    width: 48%; /* Each column takes up 48% of the width */
+    width: 30%; /* Each column takes up 48% of the width */
     display: flex;
     flex-direction: column;
+    margin-right: 10px;
 }
 
 .left-column {
@@ -808,3 +809,103 @@ footer .footer-logo {
     margin-top: 30px;  /* Create space between client select and stats sections */
 }
 /* END of Client Select and Create New User Section */
+
+
+
+/* ==================USERCREATION SPECIFIC STYLE========================== */
+
+
+/* Main Content Section */
+/*main {
+    margin-left: 260px;
+    padding: 20px;
+} */
+
+.createuser-container {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-bottom: 30px;
+    width: 85%;  /* Adjust the width to reduce it (e.g., 90% of the parent container) */
+    margin-left: auto;  /* Aligns the container to the right */
+    margin-right: 20px; /* Adds padding space from the right side */
+}
+
+.createuser-container h2 {
+    font-size: 24px;
+    margin-bottom: 100px;
+    color: #333;
+}
+
+.column1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.column1 .form-row1 {
+    width: 48%;
+    margin-bottom: 15px;
+}
+
+.column1 .form-row1 label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.column1 .form-row1 input,
+.column1 .form-row1 select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.column1 .form-row1 input:focus,
+.column1 .form-row1 select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.save-btn1 {
+    background-color: #2980b9;
+    color: white;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.save-btn1:hover {
+    background-color: #3498db;
+}
+
+.form-row1 button[type="submit"] {
+    width: 100%;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+        .column1 .form-row1 {
+        width: 100%;
+    }
+
+    .save-btn1 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    
+    .save-btn1 {
+        width: 100%;
+    }
+
+}

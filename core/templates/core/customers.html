@@ -89,6 +89,7 @@
 
     <!-- Main Content Section -->
     <main class="content">
+        
         <div class="billing-container">
             <h2>Billing Section</h2>
 
@@ -111,15 +112,11 @@
                         {% for billing in billing_data %}
                             <li>
                                 <strong>Ticket ID:</strong> {{ billing.ticket_id }}<br>
+                                <strong>Invoice No:</strong> {{ billing.invoice_no }}<br>
                                 <strong>Client Name:</strong> {{ billing.client_name }}<br>
+                                <strong>Service Type:</strong> {{ billing.service_type }}<br>
                                 <strong>Client Address:</strong> {{ billing.client_address }}<br>
                                 <strong>Billing To:</strong> {{ billing.billing_to }}<br>
-                                <strong>Service Type:</strong> {{ billing.service_type }}<br>
-
-                                <strong>Billing Description:</strong> {{ billing.bill_description }}<br>
-                                <strong>Emailed:</strong> {{ billing.emailed }}<br>
-                                <strong>Comments:</strong> {{ billing.comments }}<br>
-                                <strong>Invoice No:</strong> {{ billing.invoice_no }}<br>
                                 <strong>Invoice Date:</strong> {{ billing.invoice_date }}<br>
                             </li>
                         {% endfor %}

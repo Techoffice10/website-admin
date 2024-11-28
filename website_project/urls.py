@@ -26,7 +26,8 @@ urlpatterns = [
     path('register/', views.admin_register, name='register'),
     path('login/', views.CustomLoginView.as_view(), name='login'),  # Use the custom login view
     path('dashboard/', views.dashboard, name='dashboard'),  # Dashboard URL
-    path('dashboard/usercreation/', views.user_creation, name='user_creation'),  # New User Creation URL
+    #path('dashboard/usercreation/', views.user_creation, name='user_creation'),  # New User Creation URL
+    path('dashboard/usercreation/', views.user_creation_view, name='user_creation'), # ========================New UserCreation.html form===========
     path('dashboard/billing/', views.billing_view, name='billing'),  # Billing form and search URL
     path('search_billing/', views.search_billing, name='search_billing'),  # Search billing entry
     path('save_billing/', views.save_billing, name='save_billing'),

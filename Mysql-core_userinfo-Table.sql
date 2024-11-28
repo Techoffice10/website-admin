@@ -74,14 +74,26 @@ ADD COLUMN history VARCHAR(255);
 describe core_billingmodel;
 ALTER TABLE core_billingmodel DROP COLUMN emailed;
 DROP TABLE IF EXISTS core_billingmodel;
+ALTER TABLE core_billingmodel MODIFY ticket_id VARCHAR(50);
 DELETE FROM core_billingmodel;
 
 DROP TABLE core_billingmodel;
 
-select * from core_billingmodel;
-
-
+show tables;
+INSERT INTO core_billingmodel (client_name, client_address, billing_to, service_type, bill_description, ticket_id, created_date, emailed, comments, invoice_no, invoice_date)
+VALUES
+('John Doe', '123 Maple Street, Springfield, IL', 'ACME Corp', 'Consulting', 'Consulting services for Q3 2024', 'TICKET123', '2024-11-01 10:30:00', 'NO', 'Payment pending', 'INV001', '2024-11-01'),
+('Henry Wilson', '789 Maple Avenue, San Francisco, CA', 'DataPros', 'Consulting', 'Consulting for database migration project', 'TICKET132', '2024-11-25 12:00:00', 'YES', 'Payment received', 'INV010', '2024-11-25');
 
 
 
 select * from core_userinfo;
+
+
+
+ALTER TABLE core_billingmodel
+MODIFY invoice_no VARCHAR(50);
+
+
+
+select * from core_billingmodel;

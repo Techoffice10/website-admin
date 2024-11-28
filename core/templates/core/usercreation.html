@@ -8,8 +8,23 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Link to the stylesheet -->
     
 <!-- Include JavaScript for popup -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+<!-- JavaScript for SweetAlert2 (Pop-up) -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script type="text/javascript">
+    // Check if the user was redirected after saving data
+    {% if messages %}
+        {% for message in messages %}
+            // Display SweetAlert2 pop-up message
+            Swal.fire({
+                title: 'Success!',
+                text: '{{ message }}',
+                icon: 'success',
+                confirmButtonText: 'Okay'
+            });
+        {% endfor %}
+    {% endif %}
+</script>
 
 
 
@@ -23,7 +38,7 @@
         <div class="logo-search">
             <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo">
         </div>
-        <div class="search-logout">     
+        <div class="search-logout">
             <!-- Log Out Button Form -->
             <form action="{% url 'logout' %}" method="POST">
                 {% csrf_token %}
@@ -50,9 +65,9 @@
             <img src="{% static 'images/sidebar12.png' %}" alt="Reports" class="sidebar-icon"> <!-- Reports icon -->
             <span class="link-text">Billing</span>
         </a></li>
-        <li><a href="#" class="sidebar-link">
+        <li><a href="{% url 'user_creation' %}" class="sidebar-link">
             <img src="{% static 'images/sidebar33.png' %}" alt="Customers" class="sidebar-icon"> <!-- Customers icon -->
-            <span class="link-text">Customers</span>
+            <span class="link-text">Users</span>
         </a></li>
         <li><a href="#" class="sidebar-link">
             <img src="{% static 'images/sidebar15.png' %}" alt="Tickets" class="sidebar-icon"> <!-- Settings icon -->
@@ -67,123 +82,204 @@
 
 
     <!-- Main Content Section -->
-    <main class="content">
+    <main class="content1">
         
-<!-- Start of Client Select and Create New User Container -->
-<div class="client-select-container">
-    <div class="client-select-row">
-        <!-- First Column: Client Dropdown -->
-        <div class="column">
-            <select id="client-name" class="client-dropdown input-field">
-                <option value="disabled">Select Client Name</option>
-                <option value="diamond-insurance">Diamond Insurance</option>
-                <option value="gracious-hardwood">Gracious Hardwood</option>
-                <option value="haulage-na">Haulage NA</option>
-                <option value="metrox">MetroX</option>
-                <option value="arthur-transport">Arthur Transport</option>
-                <option value="a-spec">A-Spec</option>
-            </select>
-        </div>
-
-        <!-- 'Create New User' Button that anchors to the form below -->
-        <div class="column">
-            <button class="save-btn" onclick="document.getElementById('create-new-user-form').scrollIntoView();">Create New User</button>
-        </div>
-    </div>
-</div>
-<!-- END of Client Select and Create New User Container -->
-
-
-
-
 <!-- start Create New User Section-->
-<div class="client-select-container">
+<!-- start Create New User Section-->
+<div class="createuser-container">
     <h2>Create New User</h2>
-    <form method="POST" class="user-info-form">
+    <div class="column1">
+        <button class="save-btn1" onclick="window.location.href='/dashboard/usercreation/'">Create New User</button>
+    </div>
+
+    <!-- User Creation Form -->
+    <form method="POST" class="user-info-form1">
         {% csrf_token %}
-        
+
         <!-- First Column -->
-        <div class="column">
-            <div class="form-row">
-                <label for="{{ form.username.id_for_label }}">User name</label>
+        <div class="column1">
+            <div class="form-row1">
+                <label for="{{ form.user_name.id_for_label }}">User name</label>
                 {{ form.user_name }}
+                {% if form.user_name.errors %}
+                    <div class="error-message">
+                        {% for error in form.user_name.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
-                <label for="{{ form.fullname.id_for_label }}">Full name</label>
+            <div class="form-row1">
+                <label for="{{ form.full_name.id_for_label }}">Full name</label>
                 {{ form.full_name }}
+                {% if form.full_name.errors %}
+                    <div class="error-message">
+                        {% for error in form.full_name.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
-                <label for="{{ form.phone.id_for_label }}">Phone no</label>
+            <div class="form-row1">
+                <label for="{{ form.phone_no.id_for_label }}">Phone no</label>
                 {{ form.phone_no }}
+                {% if form.phone_no.errors %}
+                    <div class="error-message">
+                        {% for error in form.phone_no.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
+            <div class="form-row1">
                 <label for="{{ form.email.id_for_label }}">Email</label>
                 {{ form.email }}
+                {% if form.email.errors %}
+                    <div class="error-message">
+                        {% for error in form.email.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
+            <div class="form-row1">
                 <label for="{{ form.node.id_for_label }}">Node</label>
                 {{ form.node }}
+                {% if form.node.errors %}
+                    <div class="error-message">
+                        {% for error in form.node.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         </div>
 
         <!-- Second Column -->
-        <div class="column">
-            <div class="form-row">
+        <div class="column1">
+            <div class="form-row1">
                 <label for="{{ form.branch.id_for_label }}">Branch</label>
                 {{ form.branch }}
+                {% if form.branch.errors %}
+                    <div class="error-message">
+                        {% for error in form.branch.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
-                <label for="{{ form.extno.id_for_label }}">Ext No</label>
+            <div class="form-row1">
+                <label for="{{ form.ext_no.id_for_label }}">Ext No</label>
                 {{ form.ext_no }}
+                {% if form.ext_no.errors %}
+                    <div class="error-message">
+                        {% for error in form.ext_no.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
-                <label for="{{ form.portip.id_for_label }}">Port IP</label>
+
+            <!-- Displaying form field and errors for port_ip -->
+            <div class="form-row1">
+                <label for="{{ form.port_ip.id_for_label }}">Port IP</label>
                 {{ form.port_ip }}
+                {% if form.port_ip.errors %}
+                    <div class="error-message">
+                        {% for error in form.port_ip.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
+
+            <div class="form-row1">
                 <label for="{{ form.password.id_for_label }}">Password</label>
                 {{ form.password }}
+                {% if form.password.errors %}
+                    <div class="error-message">
+                        {% for error in form.password.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
-                <label for="{{ form.powerbrokerid.id_for_label }}">Power Broker ID</label>
+            <div class="form-row1">
+                <label for="{{ form.power_broker_id.id_for_label }}">Power Broker ID</label>
                 {{ form.power_broker_id }}
+                {% if form.power_broker_id.errors %}
+                    <div class="error-message">
+                        {% for error in form.power_broker_id.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
         </div>
 
         <!-- Third Column -->
         <div class="column">
-            <div class="form-row">
-                <label for="{{ form.field1.id_for_label }}">Applied Rating ID</label>
+            <div class="form-row1">
+                <label for="{{ form.applied_rating_id.id_for_label }}">Applied Rating ID</label>
                 {{ form.applied_rating_id }}
+                {% if form.applied_rating_id.errors %}
+                    <div class="error-message">
+                        {% for error in form.applied_rating_id.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
-                <label for="{{ form.field2.id_for_label }}">Creation Date</label>
+            <div class="form-row1">
+                <label for="{{ form.user_creation_date.id_for_label }}">Creation Date</label>
                 {{ form.user_creation_date }}
+                {% if form.user_creation_date.errors %}
+                    <div class="error-message">
+                        {% for error in form.user_creation_date.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
-                <label for="{{ form.field3.id_for_label }}">Suspended Date</label>
+            <div class="form-row1">
+                <label for="{{ form.suspended_date.id_for_label }}">Suspended Date</label>
                 {{ form.suspended_date }}
+                {% if form.suspended_date.errors %}
+                    <div class="error-message">
+                        {% for error in form.suspended_date.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-            <div class="form-row">
-                <label for="{{ form.field4.id_for_label }}">Status</label>
+            <div class="form-row1">
+                <label for="{{ form.status.id_for_label }}">Status</label>
                 {{ form.status }}
+                {% if form.status.errors %}
+                    <div class="error-message">
+                        {% for error in form.status.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
 
             <!-- Save Details Button -->
-            <div class="form-row">
-                <button type="submit" class="save-btn">Save Details</button>
+            <div class="form-row1">
+                <button type="submit" class="save-btn1">Save Details</button>
             </div>
         </div>
     </form>
 </div>
 <!-- End of Create New User Section-->
 
-
-
+<!-- End of Create New User Section-->
 
     </main>
 
-    <!-- Footer Section -->
+
+
+<!-- Footer Section -->
     <footer>
         <div class="footer-content">
             <p>Tech Office Inc</p>
@@ -193,7 +289,6 @@
     </footer>
 
 <!-- JavaScript for toggling sidebar -->
-// JavaScript for toggling sidebar
 <script>
     // Get the elements
     const toggleBtn = document.querySelector('.sidebar-toggle-btn');
@@ -220,17 +315,6 @@
 
 
 
-    <!-- Show Success Message (using Django messages framework) -->
-    {% if messages %}
-    <script>
-        {% for message in messages %}
-        Swal.fire({
-            title: '{{ message }}',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        });
-        {% endfor %}
-    </script>
-    {% endif %}
+
 </body>
 </html>

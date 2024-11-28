@@ -159,7 +159,6 @@ def search_user(request):
                 'user_creation_date': results.user_creation_date,
                 'suspended_date': results.suspended_date,
                 'status': results.status,
-                'history': results.history
             }
         else:
             messages.error(request, 'No user found matching your search criteria.')
@@ -171,3 +170,30 @@ def search_user(request):
 def user_logout(request):
     logout(request)
     return redirect('login')
+
+#==============================For new usercreation.html=================
+
+
+from django.shortcuts import render, redirect
+from .forms import UserInfoForm
+from .models import UserInfo
+
+def user_creation_view(request):
+    form = UserInfoForm(request.POST or None)
+
+    # Handle form submission for saving details
+    if request.method == "POST":
+        if form.is_valid():
+            # If form is valid, save the data to the database
+            form.save()
+            return redirect('/dashboard/usercreation/')  # Redirect to the user creation page after saving
+        else:
+            # Handle form errors
+            print("Form errors:", form.errors)
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'core/usercreation.html', context)
+

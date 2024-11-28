@@ -24,7 +24,6 @@ class UserInfoForm(forms.ModelForm):
     user_creation_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'placeholder': 'Enter creation date'}))
     suspended_date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'placeholder': 'Enter suspended date'}))
     status = forms.ChoiceField(choices=[('active', 'Active'), ('inactive', 'Inactive')])
-    history = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Enter Notes', 'cols': '80', 'rows': '5'}))
 
 
 class BillingModelForm(forms.ModelForm):
@@ -65,3 +64,13 @@ class YourForm(forms.Form):
     ]
     
     status = forms.ChoiceField(choices=STATUS_CHOICES, widget=forms.Select)
+
+
+
+#=============For new usercreation.html=============================
+
+
+    
+
+
+

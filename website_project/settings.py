@@ -67,6 +67,9 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
 ]
 
+# Optionally configure the message storage backend (e.g., session storage)
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 # Allow all origins (adjust as needed for production)
 CORS_ALLOW_ALL_ORIGINS = True
 

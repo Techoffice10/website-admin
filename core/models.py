@@ -14,21 +14,23 @@ class CustomUser(AbstractUser):
 class UserInfo(models.Model):
     user_name = models.CharField(max_length=100)
     full_name = models.CharField(max_length=200)
-    phone_no = models.CharField(max_length=20)
+    phone_no = models.CharField(max_length=15)
     email = models.EmailField()
-    node = models.CharField(max_length=50)
-    branch = models.CharField(max_length=100)
-    ext_no = models.CharField(max_length=50)
-    port_ip = models.CharField(max_length=50)
-    password = models.CharField(max_length=200)  # Or use Django's password hashing
+    node = models.CharField(max_length=10)
+    branch = models.CharField(max_length=20)
+    ext_no = models.CharField(max_length=15)
+    port_ip = models.CharField(max_length=255)
+    password = models.CharField(max_length=55)  # Or use Django's password hashing
     power_broker_id = models.CharField(max_length=50)
     applied_rating_id = models.CharField(max_length=50)
     user_creation_date = models.DateField()
     suspended_date = models.DateField(null=True, blank=True)
     status = models.CharField(max_length=50)
-    history = models.TextField(null=True, blank=True)
 
-    def __str__(self):
+class Meta:
+        db_table = 'core_userinfo'  # specify the table name here
+
+def __str__(self):
         return self.user_name
     
 
@@ -62,4 +64,3 @@ class BillingModel(models.Model):
 
     def __str__(self):
         return f'{self.client_name} - {self.service_type}'
-
