@@ -30,7 +30,7 @@ class BillingModelForm(forms.ModelForm):
     class Meta:
         model = BillingModel
         fields = ['client_name', 'client_address', 'billing_to', 'service_type', 'bill_description', 'ticket_id',  
-                  'comments', 'emailed', 'invoice_no', 'invoice_date' ]
+                  'emailed', 'comments', 'invoice_no', 'invoice_date' ]
         widgets = {
             'client_name': forms.TextInput(attrs={'class': 'input-field'}),
             'client_address': forms.TextInput(attrs={'class': 'input-field'}),
@@ -38,8 +38,8 @@ class BillingModelForm(forms.ModelForm):
             'service_type': forms.TextInput(attrs={'class': 'input-field'}),
             'bill_description': forms.TextInput(attrs={'class': 'input-field'}),
             'ticket_id': forms.NumberInput(attrs={'class': 'input-field'}),
-            'comments': forms.TextInput(attrs={'class': 'input-field'}),
             'emailed': forms.TextInput(attrs={'class': 'input-field'}),
+            'comments': forms.TextInput(attrs={'class': 'input-field'}),
             'invoice_no': forms.NumberInput(attrs={'class': 'input-field'}),
             'invoice_date': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'input-field'}),
 
@@ -67,9 +67,78 @@ class YourForm(forms.Form):
 
 
 
-#=============For new usercreation.html=============================
+#=======================================Form VALIDATIONS===============================================
+#======================================================================================================
+
+    # ***** START of Validation CODE's for Billing Form *****
 
 
+
+    # Custom validation for client_name
+    def clean_client_name(self):
+        client_name = self.cleaned_data.get('client_name')
+        if not client_name:
+            raise forms.ValidationError("Client Name is required.")
+        if len(client_name) < 3:
+            raise forms.ValidationError("Client Name must be at least 3 characters long.")
+        return client_name
+
+    # Custom validation for client_address
+    def clean_client_address(self):
+        client_address = self.cleaned_data.get('client_address')
+        if not client_address:
+            raise forms.ValidationError("Client Address is required.")
+        if len(client_address) < 10:
+            raise forms.ValidationError("Client Address must be at least 10 characters long.")
+        return client_address
+
+    # Custom validation for billing_to
+    def clean_billing_to(self):
+        billing_to = self.cleaned_data.get('billing_to')
+        if not billing_to:
+            raise forms.ValidationError("Billing To is required.")
+        return billing_to
+
+    # Custom validation for service_type
+    def clean_service_type(self):
+        service_type = self.cleaned_data.get('service_type')
+        if not service_type:
+            raise forms.ValidationError("Service Type is required.")
+        return service_type
+
+    # Custom validation for bill_description
+    def clean_bill_description(self):
+        bill_description = self.cleaned_data.get('bill_description')
+        if not bill_description:
+            raise forms.ValidationError("Bill Description is required.")
+        if len(bill_description) < 5:
+            raise forms.ValidationError("Bill Description must be at least 5 characters long.")
+        return bill_description
+    
+    # Custom validation for ticket_id
+    def clean_ticket_id(self):
+        ticket_id = self.cleaned_data.get('ticket_id')
+        if not ticket_id:
+            raise forms.ValidationError("Ticket ID is required.")
+        return ticket_id
+
+
+    # Custom validation for emailed
+    def clean_emailed(self):
+        emailed = self.cleaned_data.get('emailed')
+        if emailed is None:
+            raise forms.ValidationError("Please indicate whether the bill has been emailed.")
+        return emailed
+
+    # Custom validation for comments (optional field)
+    def clean_comments(self):
+        comments = self.cleaned_data.get('comments')
+        if comments and len(comments) < 5:
+            raise forms.ValidationError("Comments must be at least 5 characters long.")
+        return comments
+
+    
+    # ***** END of Validation CODE for Billing Form *****
     
 
 

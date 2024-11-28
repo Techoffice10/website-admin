@@ -48,7 +48,7 @@ class BillingModel(models.Model):
     service_type = models.CharField(max_length=255)
     bill_description = models.CharField(max_length=255)
     ticket_id = models.IntegerField(default=0)
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateField(auto_now_add=True)
     # Updated 'emailed' field to use choices for YES/NO
     emailed = models.CharField(
         max_length=3, 
@@ -60,7 +60,7 @@ class BillingModel(models.Model):
 
     # Make 'invoice_no' and 'invoice_date' optional (allow null values)
     invoice_no = models.IntegerField(null=True, blank=True, default=None)
-    invoice_date = models.DateTimeField(null=True, blank=True, default=None)
+    invoice_date = models.DateField(null=True, blank=True, default=None)
 
     def __str__(self):
         return f'{self.client_name} - {self.service_type}'

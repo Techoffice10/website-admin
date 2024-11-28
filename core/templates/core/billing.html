@@ -6,6 +6,9 @@
     <title>Dashboard</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}"> <!-- Link to the stylesheet -->
+    
+    <!-- included the Font Awesome library used for sidebar toggle right arrow -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <!-- Display Success/Error Messages -->
     {% if messages %}
@@ -18,6 +21,7 @@
 
     <!-- Include JavaScript for popup -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <!-- JavaScript for toggling visibility -->
     <script>
@@ -40,69 +44,116 @@
             {% endif %}
         }
     </script>
+
+
 </head>
 
 <body>
     <!-- Header Section -->
     <header>
-        <div class="logo-search">
-            <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo">
+        <!-- Title with padding -->
+        <div class="title">
+            <img src="{% static 'images/logo1.png' %}" alt="Logo" class="logo">
+            <h2>Billing</h2>
         </div>
-        <div class="search-logout">    
-            <!-- Log Out Button Form -->
-            <form action="{% url 'logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="logout-button">Log Out</button>
-            </form>
+    
+        <!-- Profile and Logout section on the right side -->
+        <div class="profile-logout">
+            <!-- Profile and Dropdown -->
+            <div class="profile">
+                <!-- Profile image now triggers the dropdown -->
+                <img src="{% static 'images/profile.png' %}" alt="Profile" class="profile-logo">
+                <div class="dropdown">
+                    <div class="dropdown-content">
+                        <a href="#">
+                            <i class="fa fa-cogs"></i> Settings
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-user"></i> Profile
+                        </a>
+                        <form action="{% url 'logout' %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-button">
+                                <i class="fa fa-sign-out-alt"></i> Log Out
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </header>
+    
 
     <!-- Sidebar Section -->
     <div class="sidebar">
         <div class="sidebar-toggle-btn">
-            <button class="toggle-btn">&#8594;</button> <!-- Right Arrow to expand -->
+            <button class="toggle-btn"><i class="fas fa-arrow-right"></i></button> <!-- Right Arrow to expand -->
         </div>
 
         <ul class="sidebar-menu">
             <li><a href="{% url 'dashboard' %}" class="sidebar-link">
-                <img src="{% static 'images/sidebar11.png' %}" alt="Dashboard" class="sidebar-icon">
+                <img src="{% static 'images/sidebar11.png' %}" alt="Dashboard" class="sidebar-icon"> <!-- Dashboard icon -->
                 <span class="link-text">Dashboard</span>
             </a></li>
-            <li><a href="{% url 'billing' %}" class="sidebar-link">
-                <img src="{% static 'images/sidebar12.png' %}" alt="Reports" class="sidebar-icon">
-                <span class="link-text">Billing</span>
+            <li><a href="#" class="sidebar-link">
+                <img src="{% static 'images/sidebar14.png' %}" alt="Clients" class="sidebar-icon"> <!-- Settings icon -->
+                <span class="link-text">Clients</span>
             </a></li>
             <li><a href="{% url 'user_creation' %}" class="sidebar-link">
-                <img src="{% static 'images/sidebar33.png' %}" alt="Customers" class="sidebar-icon"> <!-- Customers icon -->
+                <img src="{% static 'images/sidebar33.png' %}" alt="Users" class="sidebar-icon"> <!-- Customers icon -->
                 <span class="link-text">Users</span>
             </a></li>
             <li><a href="#" class="sidebar-link">
-                <img src="{% static 'images/sidebar15.png' %}" alt="Settings" class="sidebar-icon">
+                <img src="{% static 'images/sidebar15.png' %}" alt="Tickets" class="sidebar-icon"> <!-- Settings icon -->
                 <span class="link-text">Tickets</span>
             </a></li>
             <li><a href="#" class="sidebar-link">
-                <img src="{% static 'images/sidebar14.png' %}" alt="Settings" class="sidebar-icon">
-                <span class="link-text">Settings</span>
+                <img src="{% static 'images/sidebar16.png' %}" alt="VoIP" class="sidebar-icon"> <!-- Settings icon -->
+                <span class="link-text">VoIP</span>
+            </a></li>
+            <li><a href="{% url 'billing' %}" class="sidebar-link">
+                <img src="{% static 'images/sidebar12.png' %}" alt="Billing" class="sidebar-icon"> <!-- Reports icon -->
+                <span class="link-text">Billing</span>
             </a></li>
         </ul>
     </div>
 
-    <!-- Main Content Section -->
-    <main class="content">
+
+
+            
+
+<!--****  ****-->
+<main class="content">
+    <div class="billing-container">
+    <div class="search-header">
+    <h2>Search</h2>
+ <!-- Search Box -->
+        <div class="search-column">
+        <!-- Search Form to find Billing details -->
+         <form method="GET" action="{% url 'search_billing' %}">
+            {% csrf_token %}
+            <div class="billing-header">
+            <label for="search_ticket_id">Search by Ticket ID or Invoice No:</label>
+            <input type="text" name="search_query" id="search_ticket_id" value="{{ search_query }}" placeholder="Ticket # or Invoice #" required>
+            <button type="submit" class="create-billing-btn">Search</button>
+            </div>
+        
+
+         </form>
+        </div>
+    </div>
+    </div>
+
+<!--****  ****-->
+
         <div class="billing-container">
-            <h2>Billing Section</h2>
 
-            <!-- Search Form to find Billing details -->
-            <form method="GET" action="{% url 'search_billing' %}">
-                {% csrf_token %}
-                <div class="form-group">
-                    <label for="search_ticket_id">Search by Ticket ID or Invoice No:</label>
-                    <input type="text" name="search_query" id="search_ticket_id" value="{{ search_query }}" placeholder="Enter Ticket ID or Invoice No" required>
-                    <button type="submit" class="search-btn">Search</button>
-                </div>
-            </form>
+    <div class="billing-header">
+        <h2>Billing Details</h2>
+        <button type="button" class="create-billing-btn" onclick="toggleCreateBillingForm()">Add Billing</button>
+    </div>
 
-            <!-- Display Search Results (Initially hidden) -->
+                <!-- Display Search Results (Initially hidden) -->
             <div id="search-results-container" class="toggle-container">
                 {% if billing_data %}
                 <div class="search-results">
@@ -131,41 +182,40 @@
             </div>
 
             <!-- Create Billing Button (Initially hidden form) -->
-            <button type="button" class="create-billing-btn" onclick="toggleCreateBillingForm()">Create Billing</button>
 
             <div id="create-billing-form" class="toggle-container">
                 <form method="POST" action="{% url 'save_billing' %}">
                     {% csrf_token %}
                     <div class="column">
                         <div class="form-group">
-                            <label for="{{ form.ticket_id.id_for_label }}">Ticket ID:</label>
-                            {{ form.ticket_id }}
-                        </div>
-                        <div class="form-group">
                             <label for="{{ form.client_name.id_for_label }}">Client Name:</label>
                             {{ form.client_name }}
                         </div>
-                    </div>
-
-                    <div class="column">
                         <div class="form-row">
                             <label for="{{ form.client_address.id_for_label }}">Client Address:</label>
                             {{ form.client_address }}
                         </div>
+                    </div>
+
+                    <div class="column">
                         <div class="form-row">
                             <label for="{{ form.billing_to.id_for_label }}">Billing To:</label>
                             {{ form.billing_to }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.service_type.id_for_label }}">Service Type:</label>
+                            {{ form.service_type }}
                         </div>
                     </div>
 
                     <div class="column">
                         <div class="form-group">
-                            <label for="{{ form.service_type.id_for_label }}">Service Type:</label>
-                            {{ form.service_type }}
-                        </div>
-                        <div class="form-group">
                             <label for="{{ form.bill_description.id_for_label }}">Bill Description:</label>
                             {{ form.bill_description }}
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.ticket_id.id_for_label }}">Ticket ID:</label>
+                            {{ form.ticket_id }}
                         </div>
                     </div>
 

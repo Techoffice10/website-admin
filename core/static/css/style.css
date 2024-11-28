@@ -14,49 +14,116 @@ body {
     background-color: #f4f4f4;
 }
 
-/* Header Section */
+
+/* **** START of Header Section **** */
+/* **** START of Header Section **** */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: #2c3e50;
     padding: 15px 30px;
     color: white;
 }
 
-header .logo-search {
+/* Title styling with logo */
+header .title {
     display: flex;
-    align-items: center;
+    align-items: center; /* Align the logo and title text horizontally */
+    margin-left: 250px; /* Creates space between the title and left side (adjust as needed) */
+    font-size: 24px;
+    font-weight: bold;
 }
 
+/* Logo styling */
 header .logo {
-    width: 50px;
-    margin-right: 15px;
+    width: 250px; /* Adjust the size of the logo */
+    height: 60px;
+    margin-right: 60px; /* Space between the logo and the title text */
 }
 
-/* Adjusted search-logout section */
-header .search-logout {
+/* Profile and Logout section */
+header .profile-logout {
     display: flex;
     align-items: center;
 }
 
-header .search-bar {
-    padding: 5px;
-    width: 250px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    margin-right: 15px;
+/* Profile logo styling */
+header .profile-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer; /* Make the profile image clickable */
 }
 
+/* Dropdown container */
+header .dropdown {
+    position: relative;
+}
+
+/* Dropdown content hidden by default */
+header .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #2c3e50;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 8px; /* Rounded corners */
+    z-index: 1;
+}
+
+/* Hover effect on profile or dropdown container to show the dropdown */
+header .profile:hover .dropdown-content,
+header .dropdown-content:hover {
+    display: block;
+}
+
+/* Dropdown item styling */
+header .dropdown-content a, header .dropdown-content button {
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    display: flex; /* Align icon and text side-by-side */
+    align-items: center; /* Vertically align icons and text */
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Icon styling */
+header .dropdown-content a i, header .dropdown-content button i {
+    margin-right: 10px; /* Space between icon and text */
+}
+
+/* Dropdown item hover effect */
+header .dropdown-content a:hover, header .dropdown-content button:hover {
+    background-color: #2c3e50;
+}
+
+/* Log out button styling */
 header .logout-button {
     color: white;
-    text-decoration: none;
     background-color: #f44336;
     padding: 10px 20px;
     border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
 
-/* Sidebar Styling */
+header .logout-button:hover {
+    background-color: #d32f2f;
+}
+
+/* **** END of Header Section **** */
+
+
+
+
+
+/* **** START of Sidebar Styling **** */
 
 /* Set the size of the sidebar icons */
 .sidebar-icon {
@@ -114,18 +181,21 @@ header .logout-button {
     color: white;
 }
 
-/* Sidebar Toggle Button */
+/* *** START of Sidebar Toggle Button *** */
+/* *** START of Sidebar Toggle Button *** */
 .sidebar .sidebar-toggle-btn {
     position: absolute;
     top: 20px;
-    right: -25px;
-    background-color: #3498db;
+    right: -20px; /* Adjusted to make space for the smaller button */
+    background-color: #3498db59;
     border: none;
     border-radius: 50%;
-    padding: 10px;
+    padding: 6px; /* Reduced padding to make the button smaller */
     color: white;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 14px; /* Smaller font size for the button */
 }
 
 .sidebar .sidebar-toggle-btn:hover {
@@ -134,6 +204,19 @@ header .logout-button {
 
 .sidebar .sidebar-toggle-btn:focus {
     outline: none;
+}
+
+/* Modify the arrow design and size */
+.sidebar .sidebar-toggle-btn i {
+    font-size: 12px; /* Smaller arrow */
+    color: #fff; /* White color for the arrow */
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for the arrow */
+.sidebar .sidebar-toggle-btn:hover i {
+    color: #007bff; /* Change to blue on hover */
+    transform: scale(1.2); /* Slightly enlarge the arrow on hover */
 }
 
 /* Sidebar Menu Layout */
@@ -178,6 +261,9 @@ header .logout-button {
         width: 200px;
     }
 }
+/* *** END of Sidebar Toggle Button *** */
+
+/* *** END of Side-bar Toggle Button *** */
 
 
 /* Content Section */
@@ -355,11 +441,11 @@ header .logout-button {
 
 
 
-/* Start of billing-container * *** */
+/* ************ START of Billing-container styling ************  */
 /* Billing Form Container */
 .billing-container {
     margin-top: 50px;
-    padding: 40px;
+    padding: 10px;
     background-color: #ffffff;
     border-radius: 12px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -368,12 +454,27 @@ header .logout-button {
     margin-right: auto;
 }
 
+/* Billing Header  added1212pm*/
+.billing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px; /* Optional: Adds space below the header */
+}
+
+/* Ensure Button and Header are aligned on the same line */
+.billing-header h2 {
+    margin: 0;
+    font-size: 32px;
+    color: #34495e;
+    font-weight: 700;
+}
+
 /* Billing Form Title */
 .billing-container h2 {
     font-size: 32px;
-    margin-bottom: 20px;
+    margin: 0; /* Remove any margin to keep it aligned */
     color: #34495e;
-    text-align: center;
     font-weight: 700;
 }
 
@@ -455,8 +556,8 @@ header .logout-button {
     }
 }
 
-/* Styling for Search and Create Billing Toggles */
 
+/* START of Styling for Search and Create Billing Toggles */
 /* Initially hidden sections */
 .toggle-container {
     display: none;
@@ -491,9 +592,19 @@ button.search-btn {
     background-color: #2196F3;
 }
 
-button.create-billing-btn {
-    margin-top: 20px;
-    background-color: #3498db;;
+/* Billing Button */
+.create-billing-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.create-billing-btn:hover {
+    background-color: #2980b9;
 }
 
 /* Smooth transitions for expanding and collapsing */
@@ -515,8 +626,26 @@ button.create-billing-btn {
     display: block;
 }
 
+/* Ensure search input has the same styling */
+#search_ticket_id {
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #e0e5ec;
+    font-size: 16px;
+    color: #34495e;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease-in-out;
+}
 
-/* END of Billing-container styling */
+/* Focus Effect on Search Input */
+#search_ticket_id:focus {
+    border-color: #2980b9;
+    outline: none;
+}
+
+
+
+/* ************ END of Billing-container styling ************  */
 
 
 
@@ -669,7 +798,7 @@ button.create-billing-btn {
 
 
 footer {
-    background-color: #333;
+    background-color: #34495e;
     color: white;
     padding: 20px;
     text-align: center;

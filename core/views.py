@@ -11,6 +11,9 @@ from .models import BillingModel
 from .models import UserInfo
 from django.contrib import messages
 from django.db.models import Q
+import logging
+
+logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
@@ -34,38 +37,43 @@ def dashboard(request):
 def user_creation(request):
     return render(request, 'core/usercreation.html')
 
-# Billing section view (handles search and form submission)
+
+
+# ***** START of Billing section view (handles search and form submission)
 def billing_view(request):
+    billing_data = None  # Initialize variable to hold the billing data
+
     if request.method == 'POST':
-        # Handling form submission (save)
+        # Handling form submission (create or update)
         form = BillingModelForm(request.POST)
         if form.is_valid():
             form.save()  # Save the form data to the database
             messages.success(request, 'Billing entry created successfully!')
-            return redirect('billing')  # Redirect to the billing page or another view
+            return redirect('billing')  # Redirect to the billing page
         else:
+            # Log form errors to debug and show an error message
+            logger.error(f"Form errors: {form.errors}")
             messages.error(request, 'There was an error in the billing form submission.')
 
     else:
         # Handling search request (GET)
-        search_query = request.GET.get('search_query', '')  # Get the search query
-        billing_data = None
-
+        search_query = request.GET.get('search_query', '')  # Get the search query from the GET parameter
         if search_query:
-            # Search by ticket_id or invoice_no (case insensitive)
+            # Search for the billing entry by ticket_id or invoice_no (case-insensitive)
             billing_data = BillingModel.objects.filter(
                 Q(ticket_id__icontains=search_query) | Q(invoice_no__icontains=search_query)
             ).first()  # Get the first match, or None if not found
 
-        # If found, populate the form with existing details, else a fresh form
+        # Populate the form with existing data (if found), or create a new form
         form = BillingModelForm(instance=billing_data) if billing_data else BillingModelForm()
 
+    # Render the billing page with the form and billing data (if found)
     return render(request, 'core/billing.html', {'form': form, 'billing_data': billing_data})
+# ***** END OF Billing section view (handles search and form submission)
 
 
-import logging
 
-logger = logging.getLogger(__name__)
+
 
 # Billing search view (to handle search via a GET request)
 def search_billing(request):
@@ -90,6 +98,8 @@ def save_billing(request):
             messages.success(request, 'Billing entry saved successfully!')
             return redirect('billing')  # Redirect to the billing page after saving
         else:
+            # Log form errors to debug
+            logger.error(f"Form errors: {form.errors}")
             messages.error(request, 'There was an error in the billing form submission.')
 
     else:
